@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Online TKA Matematika Lanjut - Matriks</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --success: #16a34a;
+            --error: #dc2626;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .tab-menu {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: #f1f5f9;
+            color: #64748b;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .question-card {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .q-number {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .q-text {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            background: #eef2ff;
+        }
+
+        .option-btn.correct {
+            background-color: #dcfce7 !important;
+            border-color: var(--success) !important;
+            color: #14532d;
+            font-weight: bold;
+        }
+
+        .option-btn.wrong {
+            background-color: #fee2e2 !important;
+            border-color: var(--error) !important;
+            color: #7f1d1d;
+        }
+
+        .action-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .result-box {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: #eef2ff;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .score-num {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .matrix {
+            display: inline-block;
+            border-left: 2px solid #000;
+            border-right: 2px solid #000;
+            padding: 0 4px;
+            border-radius: 4px;
+            vertical-align: middle;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Bimbingan TKA Matematika Lanjut</h1>
+    <div class="subtitle">Materi: Matriks, Operasi, Determinan, Invers</div>
+    <div class="subtitle">MGMP Matematika Smantarnala</div>
+    <div class="tab-menu">
+        <button class="tab-btn active" onclick="switchQuiz(1)">Kuis 1 (No. 11-15)</button>
+        <button class="tab-btn" onclick="switchQuiz(2)">Kuis 2 (No. 16-20)</button>
+    </div>
+
+    <div id="quiz-container"></div>
+
+    <button class="action-btn" id="submit-btn" onclick="submitQuiz()">Selesai & Lihat Nilai</button>
+
+    <div class="result-box" id="result-box">
+        <h2>Hasil Kuis Anda</h2>
+        <div class="score-num" id="score-val">0</div>
+        <p id="score-msg"></p>
+    </div>
+</div>
+
+<script>
+const quizData = {
+    1: [
+        {
+            id: 11,
+            type: "MOTS",
+            q: "Jika A = <span class='matrix'>2 1<br>1 1</span>, maka A² - 3A + I (dengan I matriks identitas) adalah ...",
+            options: [
+                "A. Matriks Nol",
+                "B. <span class='matrix'>1 0<br>0 1</span>",
+                "C. <span class='matrix'>0 1<br>1 0</span>",
+                "D. <span class='matrix'>-1 0<br>0 -1</span>",
+                "E. <span class='matrix'>2 0<br>0 2</span>"
+            ],
+            ans: 0
+        },
+        {
+            id: 12,
+            type: "MOTS",
+            q: "Diketahui matriks P = <span class='matrix'>1 2<br>1 3</span> dan Q = <span class='matrix'>4 1<br>1 1</span>. Nilai dari det(P⁻¹ · Q) adalah ...",
+            options: ["A. 1", "B. 2", "C. 3", "D. 4", "E. 5"],
+            ans: 2
+        },
+        {
+            id: 13,
+            type: "MOTS",
+            q: "Determinan dari matriks ordo 3×3 yaitu M = <span class='matrix'>2 1 0<br>3 -1 4<br>1 2 1</span> adalah ...",
+            options: ["A. -11", "B. -7", "C. 0", "D. 7", "E. 11"],
+            ans: 0
+        },
+        {
+            id: 14,
+            type: "MOTS",
+            q: "Sistem persamaan linear 2x + 3y = 8 dan x - 2y = -3 dapat dinyatakan dalam bentuk matriks A · X = B. Determinan matriks koefisien A adalah ...",
+            options: ["A. -7", "B. -1", "C. 1", "D. 7", "E. 8"],
+            ans: 0
+        },
+        {
+            id: 15,
+            type: "HOTS",
+            q: "Diketahui matriks A dan B berordo 2×2 memenuhi det(A) = k dan det(B) = 2k (dengan k ≠ 0). Jika det(2Aᵀ · B⁻¹) = 8, maka nilai k yang memenuhi adalah ...",
+            options: [
+                "A. Bebas untuk semua nilai k",
+                "B. k = 1",
+                "C. k = 2",
+                "D. k = 4",
+                "E. Tidak ada nilai k yang memenuhi"
+            ],
+            ans: 0
+        }
+    ],
+    2: [
+        {
+            id: 16,
+            type: "HOTS",
+            q: "Jika A adalah matriks persegi ordo 2×2 yang memenuhi A² - 5A + 6I = 0, maka invers dari matriks A dapat dinyatakan sebagai ...",
+            options: [
+                "A. ⅙(5I - A)",
+                "B. ⅙(A - 5I)",
+                "C. 5I - A",
+                "D. ⅕(6I - A)",
+                "E. 6I - 5A"
+            ],
+            ans: 0
+        },
+        {
+            id: 17,
+            type: "HOTS",
+            q: "Diketahui matriks A = <span class='matrix'>a b<br>c d</span> dengan a, b, c, d membentuk barisan aritmatika dengan beda b = 2. Jika a = 1, maka determinan matriks A adalah ...",
+            options: ["A. -16", "B. -8", "C. -4", "D. 4", "E. 8"],
+            ans: 1
+        },
+        {
+            id: 18,
+            type: "HOTS",
+            q: "Misalkan P dan Q adalah matriks ordo 3×3 sedemikian sehingga det(P) = 4. Jika Q = 2P⁻¹, maka determinan dari matriks Q adalah ...",
+            options: ["A. ½", "B. 2", "C. 4", "D. 8", "E. 16"],
+            ans: 1
+        },
+        {
+            id: 19,
+            type: "HOTS",
+            q: "Bima membeli 2 buku dan 3 pensil seharga Rp12.000, sedangkan Ani membeli 3 buku dan 1 pensil seharga Rp11.000. Jika harga 1 buku = x dan 1 pensil = y, bentuk solusi matriks invers yang tepat adalah ...",
+            options: [
+                "A. [x; y] = -⅐ · <span class='matrix'>1 -3<br>-3 2</span> · <span class='matrix'>12000<br>11000</span>",
+                "B. [x; y] = <span class='matrix'>-1 3<br>3 -2</span> · <span class='matrix'>12000<br>11000</span>",
+                "C. [x; y] = -⅐ · <span class='matrix'>-1 3<br>3 -2</span> · <span class='matrix'>12000<br>11000</span>",
+                "D. [x; y] = <span class='matrix'>2 3<br>3 1</span> · <span class='matrix'>12000<br>11000</span>",
+                "E. [x; y] = -⅐ · <span class='matrix'>2 -3<br>-3 1</span> · <span class='matrix'>12000<br>11000</span>"
+            ],
+            ans: 0
+        },
+        {
+            id: 20,
+            type: "HOTS",
+            q: "Diketahui A = <span class='matrix'>log a &nbsp; log b<br>log b &nbsp; log a</span>. Jika det(A) = 0 dan a, b > 0 dengan a ≠ b, maka hubungan antara a dan b adalah ...",
+            options: [
+                "A. a = 1/b",
+                "B. a = b²",
+                "C. a = 2b",
+                "D. a = b + 1",
+                "E. a = 10b"
+            ],
+            ans: 0
+        }
+    ]
+};
+
+let currentQuiz = 1;
+let userAnswers = {};
+
+function renderQuiz() {
+    const container = document.getElementById('quiz-container');
+    container.innerHTML = '';
+    const questions = quizData[currentQuiz];
+
+    questions.forEach((qData) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        
+        let optionsHTML = '';
+        qData.options.forEach((opt, oIndex) => {
+            const isSelected = userAnswers[qData.id] === oIndex;
+            optionsHTML += `
+                <button class="option-btn ${isSelected ? 'selected' : ''}" 
+                        id="opt-${qData.id}-${oIndex}"
+                        onclick="selectAnswer(${qData.id}, ${oIndex})">
+                    ${opt}
+                </button>
+            `;
+        });
+
+        card.innerHTML = `
+            <div class="q-number">Soal Nomor ${qData.id} [${qData.type}]</div>
+            <div class="q-text">${qData.q}</div>
+            <div class="options-list">${optionsHTML}</div>
+        `;
+        container.appendChild(card);
+    });
+
+    document.getElementById('result-box').style.display = 'none';
+    document.getElementById('submit-btn').style.display = 'block';
+}
+
+function selectAnswer(qId, optionIdx) {
+    userAnswers[qId] = optionIdx;
+    const questions = quizData[currentQuiz];
+    const qData = questions.find(q => q.id === qId);
+    
+    qData.options.forEach((_, idx) => {
+        const btn = document.getElementById(`opt-${qId}-${idx}`);
+        if (btn) {
+            btn.style.borderColor = idx === optionIdx ? '#4f46e5' : '#e2e8f0';
+            btn.style.background = idx === optionIdx ? '#eef2ff' : 'white';
+        }
+    });
+}
+
+function switchQuiz(quizNum) {
+    currentQuiz = quizNum;
+    document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx + 1 === quizNum);
+    });
+    renderQuiz();
+}
+
+function submitQuiz() {
+    const questions = quizData[currentQuiz];
+    let correctCount = 0;
+
+    questions.forEach(qData => {
+        const selectedOpt = userAnswers[qData.id];
+        qData.options.forEach((_, idx) => {
+            const btn = document.getElementById(`opt-${qData.id}-${idx}`);
+            if (btn) {
+                btn.disabled = true;
+                if (idx === qData.ans) {
+                    btn.classList.add('correct');
+                } else if (selectedOpt === idx) {
+                    btn.classList.add('wrong');
+                }
+            }
+        });
+
+        if (selectedOpt === qData.ans) {
+            correctCount++;
+        }
+    });
+
+    const score = (correctCount / questions.length) * 100;
+    document.getElementById('score-val').innerText = score;
+    document.getElementById('score-msg').innerText = `Anda menjawab benar ${correctCount} dari ${questions.length} soal.`;
+    document.getElementById('result-box').style.display = 'block';
+    document.getElementById('submit-btn').style.display = 'none';
+}
+
+renderQuiz();
+</script>
+
+</body>
+</html>
