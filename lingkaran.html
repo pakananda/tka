@@ -15,6 +15,24 @@
             --success: #38a169;
             --error: #e53e3e;
             --hint-bg: #feebc8;
+            --border: #e2e8f0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0f1720;
+                --card-bg: #182233;
+                --text: #e2e8f0;
+                --border: #2d3a4f;
+                --hint-bg: #4a3a1a;
+            }
+        }
+        :root[data-theme="dark"] {
+            --bg: #0f1720;
+            --card-bg: #182233;
+            --text: #e2e8f0;
+            --border: #2d3a4f;
+            --hint-bg: #4a3a1a;
         }
 
         * {
@@ -65,7 +83,7 @@
         .nav-tabs {
             display: flex;
             gap: 8px;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 2px solid var(--border);
             margin-bottom: 25px;
             overflow-x: auto;
             padding-bottom: 5px;
@@ -88,6 +106,11 @@
             transform: translateY(-2px);
         }
 
+        .tab-btn:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
         .tab-btn.active {
             background: var(--secondary);
             color: white;
@@ -105,8 +128,8 @@
 
         /* Soal Card Styling */
         .question-card {
-            background: #fff;
-            border: 1px solid #e2e8f0;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
             border-left: 5px solid var(--secondary);
             padding: 20px;
             border-radius: 8px;
@@ -136,15 +159,15 @@
             display: flex;
             align-items: center;
             padding: 10px 14px;
-            background: #f8fafc;
-            border: 1px solid #cbd5e0;
+            background: rgba(203,213,224,0.15);
+            border: 1px solid var(--border);
             border-radius: 6px;
             cursor: pointer;
             transition: background 0.2s ease;
         }
 
         .option-label:hover {
-            background: #edf2f7;
+            background: rgba(203,213,224,0.3);
         }
 
         .option-label input {
@@ -177,6 +200,11 @@
             border-radius: 4px;
             font-size: 0.9rem;
             color: #744210;
+        }
+
+        :root[data-theme="dark"] .hint-box,
+        @media (prefers-color-scheme: dark) {
+            .hint-box { color: #fbd38d; }
         }
 
         .feedback {
@@ -226,8 +254,8 @@
 
         /* Ulasan Materi Canvas & SVG */
         .materi-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -242,7 +270,7 @@
         .math-expr {
             font-family: 'Cambria Math', 'Times New Roman', serif;
             font-style: italic;
-            background: #edf2f7;
+            background: rgba(203,213,224,0.25);
             padding: 2px 6px;
             border-radius: 4px;
         }
@@ -250,11 +278,28 @@
         .canvas-container {
             text-align: center;
             margin: 20px 0;
+            overflow-x: auto;
         }
 
         svg {
             max-width: 100%;
             height: auto;
+        }
+
+        .illustration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .illustration-caption {
+            font-size: 0.9rem;
+            text-align: left;
+            background: rgba(49,151,149,0.08);
+            border-left: 4px solid var(--accent);
+            padding: 10px 14px;
+            border-radius: 4px;
+            margin-top: 10px;
         }
 
         /* Animations */
@@ -279,17 +324,18 @@
 
     <!-- Tab Navigation -->
     <div class="nav-tabs">
-        <button class="tab-btn active" onclick="openTab(event, 'sub1')">Soal 1 - 5</button>
+        <button class="tab-btn" onclick="openTab(event, 'sub1')">Soal 1 - 5</button>
         <button class="tab-btn" onclick="openTab(event, 'sub2')">Soal 6 - 10</button>
         <button class="tab-btn" onclick="openTab(event, 'sub3')">Soal 11 - 15</button>
         <button class="tab-btn" onclick="openTab(event, 'sub4')">Soal 16 - 20</button>
-        <button class="tab-btn" onclick="openTab(event, 'sub5')">Ulasan Materi & Visual</button>
+        <button class="tab-btn" onclick="openTab(event, 'sub5')">Soal 21 - 25</button>
+        <button class="tab-btn active" onclick="openTab(event, 'sub6')">Ulasan Materi & Visual</button>
     </div>
 
     <!-- SUB 1: SOAL 1-5 -->
-    <div id="sub1" class="tab-content active">
+    <div id="sub1" class="tab-content">
         <h2>Latihan Soal Sub 1 (Nomor 1 - 5)</h2>
-        
+
         <!-- Soal 1 -->
         <div class="question-card" id="q1">
             <div class="question-text">1. Persamaan lingkaran yang berpusat di O(0,0) dan memiliki jari-jari r = 7 adalah...</div>
@@ -411,12 +457,12 @@
 
         <!-- Soal 9 -->
         <div class="question-card" id="q9">
-            <div class="question-text">9. Kedudukan garis y = x + 2 terhadap lingkaran x² + y² = 9 dapat ditentukan melalui nilai Diskriminan (D). Nilai D tersebut adalah...</div>
+            <div class="question-text">9. Kedudukan garis y = x + 2 terhadap lingkaran x² + y² = 9 dapat ditentukan melalui nilai Diskriminan (D). Kategori nilai D tersebut adalah...</div>
             <div class="options">
                 <label class="option-label"><input type="radio" name="q9" value="A"> A. D < 0 (Tidak memotong)</label>
                 <label class="option-label"><input type="radio" name="q9" value="B"> B. D = 0 (Menyinggung)</label>
                 <label class="option-label"><input type="radio" name="q9" value="C"> C. D > 0 (Memotong di 2 titik)</label>
-                <label class="option-label"><input type="radio" name="q9" value="D"> D. D = -14</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D. Nilai D tidak dapat ditentukan</label>
             </div>
             <button class="btn-hint" onclick="toggleHint('hint9')">💡 Petunjuk / Rumus</button>
             <div class="hint-box" id="hint9">Substitusikan y = x + 2 ke x² + y² = 9 → 2x² + 4x - 5 = 0. Cari <b>D = b² - 4ac</b>.</div>
@@ -526,12 +572,12 @@
             <div class="question-text">16. Salah satu persamaan garis singgung lingkaran x² + y² = 10 yang ditarik dari titik luar T(4, 2) adalah...</div>
             <div class="options">
                 <label class="option-label"><input type="radio" name="q16" value="A"> A. 3x - y = 10</label>
-                <label class="option-label"><input type="radio" name="q16" value="B"> B. x + 3y = 10</label>
+                <label class="option-label"><input type="radio" name="q16" value="B"> B. x + 3y = 20</label>
                 <label class="option-label"><input type="radio" name="q16" value="C"> C. 2x + y = 10</label>
                 <label class="option-label"><input type="radio" name="q16" value="D"> D. x - 3y = 10</label>
             </div>
             <button class="btn-hint" onclick="toggleHint('hint16')">💡 Petunjuk / Rumus</button>
-            <div class="hint-box" id="hint16">Gunakan garis kutub (polar): <b>x₁x + y₁y = r²</b> → 4x + 2y = 10.</div>
+            <div class="hint-box" id="hint16">Cari garis kutub (polar) dulu: <b>x₁x + y₁y = r²</b> → 4x + 2y = 10 → y = 5 - 2x. Substitusikan ke x² + y² = 10 untuk menemukan titik-titik singgungnya.</div>
             <div class="feedback" id="fb16"></div>
         </div>
 
@@ -565,15 +611,15 @@
 
         <!-- Soal 19 -->
         <div class="question-card" id="q19">
-            <div class="question-text">19. Panjang garis singgung persekutuan luar dari titik T(7, 0) ke lingkaran x² + y² = 9 adalah...</div>
+            <div class="question-text">19. Panjang garis singgung yang ditarik dari titik T(7, 0) ke lingkaran x² + y² = 9 adalah...</div>
             <div class="options">
                 <label class="option-label"><input type="radio" name="q19" value="A"> A. 2√10</label>
                 <label class="option-label"><input type="radio" name="q19" value="B"> B. 4</label>
-                <label class="option-label"><input type="radio" name="q19" value="C"> C. √40</label>
-                <label class="option-label"><input type="radio" name="q19" value="D"> D. 2√10 (atau √40)</label>
+                <label class="option-label"><input type="radio" name="q19" value="C"> C. √58</label>
+                <label class="option-label"><input type="radio" name="q19" value="D"> D. √10</label>
             </div>
             <button class="btn-hint" onclick="toggleHint('hint19')">💡 Petunjuk / Rumus</button>
-            <div class="hint-box" id="hint19">Gunakan Phytagoras: <b>Panjang = √(d² - r²)</b>. Jarak d = 7, r = 3.</div>
+            <div class="hint-box" id="hint19">Gunakan Pythagoras: <b>Panjang = √(d² - r²)</b>. Jarak d = 7, r = 3.</div>
             <div class="feedback" id="fb19"></div>
         </div>
 
@@ -594,15 +640,91 @@
         <button class="btn-submit" onclick="checkAnswers(16, 20)">Periksa Jawaban Sub 4</button>
     </div>
 
-    <!-- SUB 5: ULASAN MATERI LINGKARAN & ILUSTRASI -->
+    <!-- SUB 5: SOAL 21-25 -->
     <div id="sub5" class="tab-content">
-        <h2>Sub 5: Ulasan Materi Lingkaran & Ilustrasi Visual</h2>
+        <h2>Latihan Soal Sub 5 (Nomor 21 - 25)</h2>
+
+        <!-- Soal 21 -->
+        <div class="question-card" id="q21">
+            <div class="question-text">21. Sebuah taman berbentuk lingkaran memiliki diameter 28 meter. Keliling dan luas taman tersebut adalah...</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q21" value="A"> A. K = 88 m dan L = 616 m²</label>
+                <label class="option-label"><input type="radio" name="q21" value="B"> B. K = 44 m dan L = 308 m²</label>
+                <label class="option-label"><input type="radio" name="q21" value="C"> C. K = 88 m dan L = 308 m²</label>
+                <label class="option-label"><input type="radio" name="q21" value="D"> D. K = 176 m dan L = 616 m²</label>
+            </div>
+            <button class="btn-hint" onclick="toggleHint('hint21')">💡 Petunjuk / Rumus</button>
+            <div class="hint-box" id="hint21">r = 14 m. Gunakan <b>K = 2 · π · r</b> dan <b>L = π · r²</b> dengan π = 22/7.</div>
+            <div class="feedback" id="fb21"></div>
+        </div>
+
+        <!-- Soal 22 -->
+        <div class="question-card" id="q22">
+            <div class="question-text">22. Diketahui sudut pusat juring lingkaran adalah 60° dengan jari-jari 21 cm. Luas juring tersebut adalah...</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q22" value="A"> A. 132 cm²</label>
+                <label class="option-label"><input type="radio" name="q22" value="B"> B. 231 cm²</label>
+                <label class="option-label"><input type="radio" name="q22" value="C"> C. 462 cm²</label>
+                <label class="option-label"><input type="radio" name="q22" value="D"> D. 693 cm²</label>
+            </div>
+            <button class="btn-hint" onclick="toggleHint('hint22')">💡 Petunjuk / Rumus</button>
+            <div class="hint-box" id="hint22">Gunakan rumus <b>Luas Juring = (α / 360°) · π · r²</b> dengan α = 60° dan r = 21.</div>
+            <div class="feedback" id="fb22"></div>
+        </div>
+
+        <!-- Soal 23 -->
+        <div class="question-card" id="q23">
+            <div class="question-text">23. Panjang busur lingkaran dengan sudut pusat 90° dan jari-jari 14 cm adalah...</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q23" value="A"> A. 11 cm</label>
+                <label class="option-label"><input type="radio" name="q23" value="B"> B. 22 cm</label>
+                <label class="option-label"><input type="radio" name="q23" value="C"> C. 44 cm</label>
+                <label class="option-label"><input type="radio" name="q23" value="D"> D. 88 cm</label>
+            </div>
+            <button class="btn-hint" onclick="toggleHint('hint23')">💡 Petunjuk / Rumus</button>
+            <div class="hint-box" id="hint23">Gunakan rumus <b>Panjang Busur = (90° / 360°) · 2 · π · r</b>.</div>
+            <div class="feedback" id="fb23"></div>
+        </div>
+
+        <!-- Soal 24 -->
+        <div class="question-card" id="q24">
+            <div class="question-text">24. Sebuah roda sepeda dengan jari-jari 35 cm berputar sebanyak 500 kali. Jarak total yang ditempuh sepeda tersebut adalah...</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q24" value="A"> A. 1,1 km</label>
+                <label class="option-label"><input type="radio" name="q24" value="B"> B. 2,2 km</label>
+                <label class="option-label"><input type="radio" name="q24" value="C"> C. 11 km</label>
+                <label class="option-label"><input type="radio" name="q24" value="D"> D. 22 km</label>
+            </div>
+            <button class="btn-hint" onclick="toggleHint('hint24')">💡 Petunjuk / Rumus</button>
+            <div class="hint-box" id="hint24"><b>Jarak Total = Keliling Roda × Banyak Putaran</b>. Konversikan cm ke meter/km.</div>
+            <div class="feedback" id="fb24"></div>
+        </div>
+
+        <!-- Soal 25 -->
+        <div class="question-card" id="q25">
+            <div class="question-text">25. Diketahui dua lingkaran masing-masing berjari-jari 7 cm dan 2 cm. Jika jarak kedua pusat lingkaran 13 cm, maka panjang garis singgung persekutuan luar kedua lingkaran adalah...</div>
+            <div class="options">
+                <label class="option-label"><input type="radio" name="q25" value="A"> A. 12 cm</label>
+                <label class="option-label"><input type="radio" name="q25" value="B"> B. 10 cm</label>
+                <label class="option-label"><input type="radio" name="q25" value="C"> C. 15 cm</label>
+                <label class="option-label"><input type="radio" name="q25" value="D"> D. 8 cm</label>
+            </div>
+            <button class="btn-hint" onclick="toggleHint('hint25')">💡 Petunjuk / Rumus</button>
+            <div class="hint-box" id="hint25">Gunakan rumus <b>d = √(p² - (R - r)²)</b>. Jarak p = 13, R = 7, r = 2.</div>
+            <div class="feedback" id="fb25"></div>
+        </div>
+
+        <button class="btn-submit" onclick="checkAnswers(21, 25)">Periksa Jawaban Sub 5</button>
+    </div>
+
+    <!-- SUB 6: ULASAN MATERI & VISUAL -->
+    <div id="sub6" class="tab-content active">
+        <h2>Ulasan Materi & Visualisasi Geometri Lingkaran</h2>
 
         <div class="materi-card">
-            <h3>1. Ilustrasi Visual Unsur Lingkaran</h3>
-            <p>Berikut adalah contoh geometri lingkaran berpusat di <span class="math-expr">P(a,b)</span> dengan titik <span class="math-expr">(x,y)</span> dan jari-jari <span class="math-expr">r</span>:</p>
-            
-            <div class="canvas-container">
+            <h3>1. Persamaan Lingkaran</h3>
+
+<div class="canvas-container">
                 <svg width="350" height="300" viewBox="0 0 350 300">
                     <!-- Grid Background -->
                     <defs>
@@ -634,10 +756,7 @@
                     <text x="200" y="110" fill="#319795" font-weight="bold" font-size="14">r</text>
                 </svg>
             </div>
-        </div>
 
-        <div class="materi-card">
-            <h3>2. Rangkuman Formula Persamaan Lingkaran</h3>
             <ul>
                 <li><b>Pusat O(0,0) & Jari-jari r:</b> <span class="math-expr">x² + y² = r²</span></li>
                 <li><b>Pusat P(a,b) & Jari-jari r:</b> <span class="math-expr">(x - a)² + (y - b)² = r²</span></li>
@@ -649,64 +768,122 @@
         </div>
 
         <div class="materi-card">
-            <h3>3. Persamaan Garis Singgung Lingkaran (PGSL)</h3>
-            <ul>
-                <li><b>Melalui Titik Singgung (x₁, y₁) pada Lingkaran O(0,0):</b>
-                    <br><span class="math-expr">x₁x + y₁y = r²</span>
-                </li>
-                <li><b>Melalui Titik Singgung (x₁, y₁) pada Lingkaran P(a,b):</b>
-                    <br><span class="math-expr">(x₁ - a)(x - a) + (y₁ - b)(y - b) = r²</span>
-                </li>
-                <li><b>Dengan Gradien m:</b>
+            <h3>2. Persamaan Garis Singgung Lingkaran (PGSL)</h3>
+            <p>Ada dua kasus utama yang sering muncul di soal. Perhatikan ilustrasi berikut:</p>
+
+            <div class="illustration-grid">
+                <!-- KASUS 1: Titik pada lingkaran -->
+                <div>
+                    <div class="canvas-container">
+                        <svg viewBox="0 0 320 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi garis singgung di titik pada lingkaran">
+                            <!-- lingkaran -->
+                            <circle cx="150" cy="140" r="80" fill="none" stroke="#2b6cb0" stroke-width="3"/>
+                            <!-- jari-jari P ke A -->
+                            <line x1="150" y1="140" x2="222.5" y2="106.2" stroke="#1a365d" stroke-width="2.5"/>
+                            <!-- garis singgung melalui A -->
+                            <line x1="180.2" y1="15.6" x2="264.8" y2="196.8" stroke="#e53e3e" stroke-width="3"/>
+                            <!-- indikator sudut siku-siku di A -->
+                            <polyline points="211.6,111.3 216.7,122.2 227.6,117.1" fill="none" stroke="#38a169" stroke-width="2"/>
+                            <!-- titik pusat -->
+                            <circle cx="150" cy="140" r="4.5" fill="#1a365d"/>
+                            <text x="128" y="132" font-size="14" font-weight="bold" fill="#1a365d">P(a, b)</text>
+                            <!-- titik singgung -->
+                            <circle cx="222.5" cy="106.2" r="4.5" fill="#e53e3e"/>
+                            <text x="230" y="98" font-size="14" font-weight="bold" fill="#e53e3e">A(x₁, y₁)</text>
+                            <text x="70" y="240" font-size="13" fill="#2d3748">Garis singgung ⟂ jari-jari PA</text>
+                        </svg>
+                    </div>
+                    <div class="illustration-caption">
+                        <b>Kasus 1 — Titik singgung A(x₁, y₁) terletak pada lingkaran.</b><br>
+                        Karena garis singgung selalu tegak lurus jari-jari di titik singgungnya, rumusnya:<br>
+                        <span class="math-expr">(x₁ - a)(x - a) + (y₁ - b)(y - b) = r²</span><br>
+                        (untuk pusat O(0,0): <span class="math-expr">x₁x + y₁y = r²</span>) — dipakai pada Soal No. 10 dan No. 11.
+                    </div>
+                </div>
+
+                <!-- KASUS 2: Titik di luar lingkaran -->
+                <div>
+                    <div class="canvas-container">
+                        <svg viewBox="0 0 320 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi garis singgung dari titik di luar lingkaran">
+                            <!-- lingkaran -->
+                            <circle cx="150" cy="150" r="70" fill="none" stroke="#2b6cb0" stroke-width="3"/>
+                            <!-- garis kutub (chord of contact), putus-putus -->
+                            <line x1="208" y1="189" x2="150" y2="80" stroke="#319795" stroke-width="2" stroke-dasharray="6,4"/>
+                            <!-- dua garis singgung dari T -->
+                            <line x1="280" y1="80" x2="208" y2="189" stroke="#e53e3e" stroke-width="3"/>
+                            <line x1="280" y1="80" x2="150" y2="80" stroke="#e53e3e" stroke-width="3"/>
+                            <!-- pusat -->
+                            <circle cx="150" cy="150" r="4.5" fill="#1a365d"/>
+                            <text x="118" y="150" font-size="14" font-weight="bold" fill="#1a365d">P</text>
+                            <!-- titik luar T -->
+                            <circle cx="280" cy="80" r="4.5" fill="#744210"/>
+                            <text x="286" y="76" font-size="14" font-weight="bold" fill="#744210">T(x₁, y₁)</text>
+                            <!-- titik singgung -->
+                            <circle cx="208" cy="189" r="4" fill="#e53e3e"/>
+                            <text x="212" y="208" font-size="13" font-weight="bold" fill="#e53e3e">A₁</text>
+                            <circle cx="150" cy="80" r="4" fill="#e53e3e"/>
+                            <text x="130" y="70" font-size="13" font-weight="bold" fill="#e53e3e">A₂</text>
+                            <text x="50" y="235" font-size="13" fill="#2d3748">Garis putus-putus = garis kutub (polar)</text>
+                        </svg>
+                    </div>
+                    <div class="illustration-caption">
+                        <b>Kasus 2 — Titik T(x₁, y₁) berada di luar lingkaran</b> (ada dua garis singgung).<br>
+                        Langkah: cari dulu garis kutub (polar) <span class="math-expr">x₁x + y₁y = r²</span>, lalu potongkan garis ini dengan persamaan lingkaran untuk mendapatkan dua titik singgung A₁ dan A₂ — dipakai pada Soal No. 16.
+                    </div>
+                </div>
+            </div>
+	<div class="illustration-caption">
+	<b>Kasus 3 — Jika diketahui Gradien garis singgung m dan Pusat (a,b):</b>
                     <br><span class="math-expr">y - b = m(x - a) ± r√(m² + 1)</span>
-                </li>
-            </ul>
+	</div>
+
         </div>
+	<div class="materi-card">
+    <h3>4. Luas dan Keliling Daerah Lingkaran (dan Bagian Lingkaran)</h3>
+    <ul>
+        <li><b>Keliling Lingkaran Utuh (<span class="math">K</span>):</b> 
+            <br><span class="math-expr"><span class="math">K = 2 &middot; &pi; &middot; r</span> &nbsp;atau&nbsp; <span class="math">K = &pi; &middot; d</span></span>
+        </li>
+        <li><b>Luas Daerah Lingkaran Utuh (<span class="math">L</span>):</b> 
+            <br><span class="math-expr"><span class="math">L = &pi; &middot; r<sup>2</sup></span> &nbsp;atau&nbsp; <span class="math">L = <span class="fraction"><span class="numerator">1</span><span class="denominator">4</span></span> &middot; &pi; &middot; d<sup>2</sup></span></span>
+        </li>
+        <li><b>Panjang Busur (Bagian Keliling):</b>
+            <br><span class="math-expr">Panjang Busur = <span class="fraction"><span class="numerator">&alpha;</span><span class="denominator">360&deg;</span></span> &middot; 2 &middot; &pi; &middot; r</span>
+        </li>
+        <li><b>Luas Juring (Bagian Luas):</b>
+            <br><span class="math-expr">Luas Juring = <span class="fraction"><span class="numerator">&alpha;</span><span class="denominator">360&deg;</span></span> &middot; &pi; &middot; r<sup>2</sup></span>
+        </li>
+        <li><b>Luas Tembereng:</b>
+            <br><span class="math-expr">Luas Tembereng = Luas Juring &minus; Luas Segitiga</span>
+        </li>
+    </ul>
+    <p><i>Catatan: Gunakan <span class="math">&pi; = <span class="fraction"><span class="numerator">22</span>/<span class="denominator">7</span></span></span> untuk jari-jari kelipatan 7, atau <span class="math">&pi; = 3,14</span> untuk angka lainnya.</i></p>
+
     </div>
+    </div>
+
+	
 
 </div>
 
 <script>
-    // Kunci Jawaban & Pembahasan
-    const answerKey = {
-        1: { ans: "B", exp: "x² + y² = 7² ⟹ x² + y² = 49" },
-        2: { ans: "A", exp: "Pusat (a,b) = (3, -5) dan r = √36 = 6" },
-        3: { ans: "C", exp: "r = √20 = √(4×5) = 2√5" },
-        4: { ans: "A", exp: "r² = (1 - (-2))² + (8 - 4)² = 3² + 4² = 25. Maka (x + 2)² + (y - 4)² = 25" },
-        5: { ans: "D", exp: "P = (-(-8)/2, -6/2) = (4, -3)" },
-        6: { ans: "B", exp: "r = √(4² + (-3)² - (-11)) = √(9 + 16 + 11) = √36 = 6" },
-        7: { ans: "C", exp: "Substitusi (2,3) ⟹ 2² + 3² = 4 + 9 = 13. Karena K = r², titik berada PADA lingkaran." },
-        8: { ans: "A", exp: "r = |(3(0) + 4(0) - 10) / √(3² + 4²)| = |-10 / 5| = 2" },
-        9: { ans: "C", exp: "2x² + 4x - 5 = 0 ⟹ D = 4² - 4(2)(-5) = 16 + 40 = 56 (D > 0, memotong di 2 titik)" },
-        10: { ans: "A", exp: "x₁x + y₁y = r² ⟹ 3x + 4y = 25" },
-        11: { ans: "A", exp: "(4 - 1)(x - 1) + (-1 + 2)(y + 2) = 10 ⟹ 3x - 3 + y + 2 = 10 ⟹ 3x + y = 11" },
-        12: { ans: "A", exp: "y = 3x ± 4√(3² + 1) ⟹ y = 3x ± 4√10" },
-        13: { ans: "C", exp: "Gradien garis awal m₁ = 4/3. Karena tegak lurus, m₂ = -3/4" },
-        14: { ans: "A", exp: "Pusat = (2, -1). Menyinggung sumbu-X ⟹ r = |-1| = 1. Masukkan ke r² = a² + b² - c ⟹ 1 = 4 + 1 - c ⟹ c = 4" },
-        15: { ans: "A", exp: "Pusat lingkaran lama P(1, -2). Persamaan baru dengan r=5 adalah (x - 1)² + (y + 2)² = 25" },
-        16: { ans: "A", exp: "Garis polar dari (4,2): 4x + 2y = 10 ⟹ y = 5 - 2x. Substitusi ke x² + y² = 10 ⟹ x=1 atau x=3. Titik singgung (1,3) dan (3,1). PGSL: 3x - y = 10" },
-        17: { ans: "A", exp: "c² = r²(m² + 1) ⟹ 25 = 9(m² + 1) ⟹ 25/9 = m² + 1 ⟹ m² = 16/9" },
-        18: { ans: "A", exp: "r = |(3(2) + 4(3) - 3)/5| = 15/5 = 3. Maka r² = 9 ⟹ (x - 2)² + (y - 3)² = 9" },
-        19: { ans: "D", exp: "Panjang = √(d² - r²) = √(7² - 3²) = √(49 - 9) = √40 = 2√10" },
-        20: { ans: "A", exp: "Pusat (2, -3), r = 5. Gradien m = 4/3. PGSL: y + 3 = 4/3(x - 2) ± 5√(16/9 + 1) ⟹ 4x - 3y + 8 = 0 dan 4x - 3y - 42 = 0" }
-    };
+    // Tab Switching System
+    function openTab(evt, tabName) {
+        const tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
+        }
 
-    // Function Tab Navigation
-    function openTab(evt, tabId) {
-        let i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].classList.remove("active");
+        const tabBtns = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].classList.remove("active");
         }
-        tablinks = document.getElementsByClassName("tab-btn");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("active");
-        }
-        document.getElementById(tabId).classList.add("active");
+
+        document.getElementById(tabName).classList.add("active");
         evt.currentTarget.classList.add("active");
     }
 
-    // Toggle Hint
+    // Hint Toggle System
     function toggleHint(hintId) {
         const hintBox = document.getElementById(hintId);
         if (hintBox.style.display === "block") {
@@ -716,36 +893,68 @@
         }
     }
 
-    // Check Answers Function
-    function checkAnswers(start, end) {
-        let correctCount = 0;
-        let total = (end - start) + 1;
+    // Kunci Jawaban & Pembahasan
+    const answersKey = {
+        1: { correct: 'B', explanation: 'r = 7 → x² + y² = 7² = 49' },
+        2: { correct: 'A', explanation: 'Pusat (a,b) = (3, -5) dan r = √36 = 6' },
+        3: { correct: 'C', explanation: 'r = √20 = √(4 × 5) = 2√5' },
+        4: { correct: 'A', explanation: 'r² = (1 - (-2))² + (8 - 4)² = 3² + 4² = 25. Maka (x + 2)² + (y - 4)² = 25' },
+        5: { correct: 'D', explanation: 'Pusat = (-A/2, -B/2) = (-(-8)/2, -(6)/2) = (4, -3)' },
+        6: { correct: 'B', explanation: 'r = √((3)² + (-4)² - (-11)) = √(9 + 16 + 11) = √36 = 6' },
+        7: { correct: 'B', explanation: 'Substitusi: 2² + 3² = 4 + 9 = 13. Karena sama dengan r², maka titik terletak PADA lingkaran.' },
+        8: { correct: 'A', explanation: 'r = |(3(0) + 4(0) - 10) / √(3² + 4²)| = |-10 / 5| = 2' },
+        9: { correct: 'C', explanation: '2x² + 4x - 5 = 0 → D = 4² - 4(2)(-5) = 16 + 40 = 56 (D > 0, memotong di 2 titik)' },
+        10: { correct: 'A', explanation: 'x₁x + y₁y = r² → 3x + 4y = 25' },
+        11: { correct: 'A', explanation: '(4-1)(x-1) + (-1+2)(y+2) = 10 → 3x - 3 + y + 2 = 10 → 3x + y = 11' },
+        12: { correct: 'A', explanation: 'y = mx ± r√(m² + 1) → y = 3x ± 4√(3² + 1) = 3x ± 4√10' },
+        13: { correct: 'C', explanation: 'm₁ = 4/3. Karena tegak lurus m₂ = -1 / (4/3) = -3/4' },
+        14: { correct: 'A', explanation: 'Pusat (2, -1). Menyinggung sumbu-X → r = |-1| = 1. r² = a² + b² - c → 1 = 4 + 1 - c → c = 4' },
+        15: { correct: 'A', explanation: 'Pusat = (1, -2). Persamaan baru dengan r = 5: (x - 1)² + (y + 2)² = 25' },
+        16: { correct: 'A', explanation: 'Garis kutub: 4x + 2y = 10 → y = 5 - 2x. Substitusi ke x²+y²=10 → 5x² - 20x + 15 = 0 → x = 1 atau x = 3, menghasilkan titik singgung (3, -1) dan (1, 3). Garis singgung di (3,-1) adalah 3x - y = 10 (opsi A). (Garis singgung di titik lainnya, x + 3y = 10, tidak termasuk opsi yang benar di sini.)' },
+        17: { correct: 'A', explanation: 'c² = r²(m² + 1) → 25 = 9(m² + 1) → m² + 1 = 25/9 → m² = 16/9' },
+        18: { correct: 'A', explanation: 'r = |(3(2)+4(3)-3)/5| = 15/5 = 3 → r² = 9. Persamaan: (x-2)² + (y-3)² = 9' },
+        19: { correct: 'A', explanation: 'd = √((7-0)² + (0-0)²) = 7. Panjang garis singgung = √(d² - r²) = √(7² - 3²) = √(49 - 9) = √40 = 2√10' },
+        20: { correct: 'A', explanation: 'Pusat (2,-3), r = 5, m = 4/3. Rumus: y - b = m(x - a) ± r√(m² + 1) → 4x - 3y + 8 = 0 & 4x - 3y - 42 = 0' },
+        21: { correct: 'A', explanation: 'K = 2 · (22/7) · 14 = 88 m. L = (22/7) · 14² = 616 m²' },
+        22: { correct: 'B', explanation: 'L = (60/360) · (22/7) · 21² = (1/6) · 1386 = 231 cm²' },
+        23: { correct: 'B', explanation: 'Busur = (90/360) · 2 · (22/7) · 14 = (1/4) · 88 = 22 cm' },
+        24: { correct: 'A', explanation: 'K = 2 · (22/7) · 35 = 220 cm. Jarak = 220 cm × 500 = 110.000 cm = 1,1 km' },
+        25: { correct: 'A', explanation: 'd = √(13² - (7 - 2)²) = √(169 - 25) = √144 = 12 cm' }
+    };
 
-        for (let i = start; i <= end; i++) {
-            const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
-            const fbBox = document.getElementById(`fb${i}`);
-            
-            fbBox.style.display = "block";
+    // Answer Checking Logic
+    function checkAnswers(startNum, endNum) {
+        for (let i = startNum; i <= endNum; i++) {
+            const options = document.getElementsByName('q' + i);
+            let selectedValue = null;
 
-            if (selectedOption) {
-                const userAns = selectedOption.value;
-                const correctAns = answerKey[i].ans;
-                
-                if (userAns === correctAns) {
-                    correctCount++;
-                    fbBox.className = "feedback correct";
-                    fbBox.innerHTML = `✓ Jawaban Benar! <div class="explanation">Pembahasan: ${answerKey[i].exp}</div>`;
-                } else {
-                    fbBox.className = "feedback incorrect";
-                    fbBox.innerHTML = `✗ Jawaban Kurang Tepat (Jawaban Benar: ${correctAns}) <div class="explanation">Pembahasan: ${answerKey[i].exp}</div>`;
+            for (const option of options) {
+                if (option.checked) {
+                    selectedValue = option.value;
+                    break;
                 }
+            }
+
+            const feedbackEl = document.getElementById('fb' + i);
+            const questionData = answersKey[i];
+
+            if (!selectedValue) {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.style.display = "block";
+                feedbackEl.innerHTML = "Harap pilih salah satu jawaban terlebih dahulu!";
+                continue;
+            }
+
+            if (selectedValue === questionData.correct) {
+                feedbackEl.className = "feedback correct";
+                feedbackEl.style.display = "block";
+                feedbackEl.innerHTML = `✓ Jawaban Benar! <div class="explanation"><b>Pembahasan:</b> ${questionData.explanation}</div>`;
             } else {
-                fbBox.className = "feedback incorrect";
-                fbBox.innerHTML = `⚠️ Anda belum memilih jawaban. <div class="explanation">Kunci Jawaban: ${answerKey[i].ans}. Pembahasan: ${answerKey[i].exp}</div>`;
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.style.display = "block";
+                feedbackEl.innerHTML = `✗ Jawaban Salah. (Jawaban Benar: ${questionData.correct}) <div class="explanation"><b>Pembahasan:</b> ${questionData.explanation}</div>`;
             }
         }
-
-        alert(`Hasil Sub-modul ini: ${correctCount} benar dari ${total} soal.`);
     }
 </script>
 
