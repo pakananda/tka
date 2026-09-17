@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Soal Interaktif TKA Matematika Lanjut - Pak Ananda</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- MathJax Configuration -->
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #475569;
+            --accent: #06b6d4;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --border: #e2e8f0;
+            --table-header: #eef2ff;
+            --note-bg: #eff6ff;
+            --note-border: #93c5fd;
+            --note-text: #1e3a8a;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0f172a;
+                --card-bg: #1e293b;
+                --text: #e2e8f0;
+                --text-secondary: #94a3b8;
+                --border: #334155;
+                --table-header: #312e81;
+                --note-bg: #1e3a5f;
+                --note-border: #3b82f6;
+                --note-text: #bfdbfe;
+            }
+        }
+        :root[data-theme="dark"] {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            --table-header: #312e81;
+            --note-bg: #1e3a5f;
+            --note-border: #3b82f6;
+            --note-text: #bfdbfe;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* --- HERO HEADER STYLES --- */
+        .hero-header {
+            position: relative;
+            width: 100%;
+            min-height: 55vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .math-symbol {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 4rem;
+            font-weight: 800;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .s1 { top: 15%; left: 10%; animation-delay: 0s; }
+        .s2 { bottom: 20%; right: 15%; animation-delay: 2s; font-size: 5rem; }
+        .s3 { top: 25%; right: 10%; animation-delay: 4s; }
+        .s4 { bottom: 15%; left: 15%; animation-delay: 1s; font-size: 6rem; }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: #38bdf8;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .main-title {
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .gradient-text:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 20px rgba(0, 198, 255, 0.5);
+        }
+
+        .sub-title {
+            font-size: clamp(1.3rem, 3vw, 2.2rem);
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
+
+        .highlight {
+            background: linear-gradient(to right, #f59e0b, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ec4899, #8b5cf6);
+            color: white;
+            text-decoration: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 25px rgba(139, 92, 246, 0.5);
+        }
+
+        /* --- CONTENT CONTAINER STYLES --- */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px 20px;
+        }
+
+        .section-desc {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .tab-btn {
+            background: var(--border);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .sub-content {
+            display: none;
+        }
+
+        .sub-content.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+        }
+
+        .question-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .context-block {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 15px;
+            font-size: 0.98rem;
+            color: var(--text);
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.92rem;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid var(--border);
+            padding: 8px 10px;
+            text-align: center;
+        }
+        .data-table th {
+            background: var(--table-header);
+        }
+
+        .diagram-box {
+            display: flex;
+            justify-content: center;
+            margin: 12px 0;
+            overflow-x: auto;
+        }
+        .diagram-box svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .diagram-caption {
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-top: -6px;
+            margin-bottom: 12px;
+        }
+
+        .options-list {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .options-list li {
+            margin-bottom: 10px;
+        }
+
+        .options-list label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .options-list label:hover {
+            background: var(--table-header);
+        }
+
+        .options-list input[type="radio"],
+        .options-list input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-hint {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .btn-hint:hover {
+            background: #fde68a;
+        }
+
+        .btn-check {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-check:hover {
+            background: var(--primary-hover);
+        }
+
+        .hint-box, .answer-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .hint-box {
+            background: #fffbeb;
+            border-left: 4px solid var(--warning);
+            color: #92400e;
+        }
+
+        .answer-box {
+            background: #f0fdf4;
+            border-left: 4px solid var(--success);
+            color: #166534;
+        }
+
+        .result-feedback {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+	
+	.gradient-text {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    text-align: center;
+}
+
+.align-center {
+    text-align: center;
+    width: 100%;
+}
+    </style>
+</head>
+<body>
+
+    <!-- HERO HEADER -->
+    <header class="hero-header">
+        <div class="math-symbol s1">∑</div>
+        <div class="math-symbol s2">∫</div>
+        <div class="math-symbol s3">π</div>
+        <div class="math-symbol s4">√</div>
+
+        <div class="header-content">
+            <div class="badge">✨ Taklukkan Matematika SMA!</div>
+            <h1 class="main-title">
+                <span class="gradient-text">Belajar Matematika</span>
+            </h1>
+            <h2 class="sub-title">bersama <span class="highlight">Pak Ananda</span></h2>
+            <a href="#materi" class="cta-btn">Mulai Eksplorasi 🚀</a>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="container" id="materi">
+	<h1 class="gradient-text align-center" style="text-align: center; margin-left: auto; margin-right: auto;">
+    Panduan Latihan Soal TKA 1 (MathLab)</h1>
+        <p class="section-desc">Pilih Sub Bab untuk mulai mengerjakan soal, lihat Hint jika kesulitan, dan cek kunci jawaban!</p>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(1)">Nomor 1-5</button>
+        <button class="tab-btn" onclick="switchTab(2)">Nomor 6-10</button>
+        <button class="tab-btn" onclick="switchTab(3)">Nomor 11-15</button>
+        <button class="tab-btn" onclick="switchTab(4)">Nomor 16-20</button>
+        <button class="tab-btn" onclick="switchTab(5)">Nomor 21-25</button>
+    </div>
+
+    <!-- SUB BAB 1: NOMOR 1 - 5 -->
+    <div id="sub1" class="sub-content active">
+        <!-- Soal 1 -->
+        <div class="card" id="q1">
+            <div class="question-title">1. Perhatikan matriks $F = \begin{pmatrix} 2 & 0 \\ 0 & \frac{1}{2} \end{pmatrix}$. Invers dari matriks $F$ adalah...</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q1" value="A"> A. $\begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}$</label></li>
+                <li><label><input type="radio" name="q1" value="B"> B. $\begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}$</label></li>
+                <li><label><input type="radio" name="q1" value="C"> C. $\begin{pmatrix} 2 & 0 \\ 0 & 1 \end{pmatrix}$</label></li>
+                <li><label><input type="radio" name="q1" value="D"> D. $\begin{pmatrix} -\frac{1}{2} & 0 \\ 0 & -2 \end{pmatrix}$</label></li>
+                <li><label><input type="radio" name="q1" value="E"> E. $\begin{pmatrix} \frac{1}{2} & 0 \\ 0 & 2 \end{pmatrix}$</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint1')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(1, 'E')">Periksa Jawaban</button>
+            </div>
+            <div id="hint1" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Jika $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$, maka $A^{-1} = \frac{1}{ad-bc} \begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$.
+            </div>
+            <div id="ans1" class="answer-box">
+                <strong>Kunci Jawaban: E</strong><br>
+                Determinan $= (2)(\frac{1}{2}) - (0)(0) = 1$. Invers $= \frac{1}{1} \begin{pmatrix} \frac{1}{2} & 0 \\ 0 & 2 \end{pmatrix} = \begin{pmatrix} \frac{1}{2} & 0 \\ 0 & 2 \end{pmatrix}$.
+            </div>
+            <div id="fb1" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 2 -->
+        <div class="card" id="q2">
+            <div class="question-title">2. Pak Andi memiliki sapi ($x$) dan kambing ($y$). Kebutuhan pakan harian tiap ekor:</div>
+            <div class="context-block">
+                🐄 <strong>Sapi</strong>: 10 kg rumput gajah &amp; 10 kg rumput gamal.<br>
+                🐐 <strong>Kambing</strong>: 2 kg rumput gajah &amp; 1 kg rumput gamal.<br><br>
+                Tersedia total <strong>38 kg rumput gajah</strong> dan <strong>34 kg rumput gamal</strong> setiap hari (habis tanpa sisa).
+            </div>
+            <div class="question-title" style="font-size:1rem;">Bentuk persamaan matriks yang tepat untuk $\begin{pmatrix} x \\ y \end{pmatrix}$ adalah...</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q2" value="A"> A. $\begin{pmatrix}-1 & 1 \\ 10 & -5\end{pmatrix}\begin{pmatrix}19\\34\end{pmatrix} = \begin{pmatrix}15\\20\end{pmatrix}$</label></li>
+                <li><label><input type="radio" name="q2" value="B"> B. $\begin{pmatrix}10 & -10 \\ -1 & 2\end{pmatrix}\begin{pmatrix}38\\34\end{pmatrix} = \begin{pmatrix}4\\3\end{pmatrix}$</label></li>
+                <li><label><input type="radio" name="q2" value="C"> C. $\begin{pmatrix}-\frac{1}{10} & \frac{2}{10} \\ 1 & -1\end{pmatrix}\begin{pmatrix}34\\38\end{pmatrix} = \begin{pmatrix}4\\3\end{pmatrix}$</label></li>
+                <li><label><input type="radio" name="q2" value="D"> D. $\begin{pmatrix}-1 & 2 \\ 10 & -10\end{pmatrix}\begin{pmatrix}38\\34\end{pmatrix} = \begin{pmatrix}3\\4\end{pmatrix}$</label></li>
+                <li><label><input type="radio" name="q2" value="E"> E. $\begin{pmatrix}-\frac{1}{5} & \frac{1}{5} \\ 2 & -1\end{pmatrix}\begin{pmatrix}19\\34\end{pmatrix} = \begin{pmatrix}3\\4\end{pmatrix}$</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint2')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(2, 'E')">Periksa Jawaban</button>
+            </div>
+            <div id="hint2" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Sistem persamaan: $10x + 2y = 38$ (gajah) dan $10x + y = 34$ (gamal). Sederhanakan persamaan pertama menjadi $5x+y=19$. Ubah ke bentuk matriks $A X = B \implies X = A^{-1} B$.
+            </div>
+            <div id="ans2" class="answer-box">
+                <strong>Kunci Jawaban: E</strong><br>
+                Dari $5x+y=19$ dan $10x+y=34$, matriks koefisien $A=\begin{pmatrix}5&1\\10&1\end{pmatrix}$ dengan $\det A = -5$, sehingga $A^{-1}=\begin{pmatrix}-\frac{1}{5}&\frac{1}{5}\\2&-1\end{pmatrix}$. Dikalikan $\begin{pmatrix}19\\34\end{pmatrix}$ menghasilkan $\begin{pmatrix}3\\4\end{pmatrix}$, jadi $x=3$ sapi dan $y=4$ kambing.
+            </div>
+            <div id="fb2" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 3 -->
+        <div class="card" id="q3">
+            <div class="question-title">3. Sebuah pabrik minuman tradisional memproduksi tiga jenis minuman: Wedang Jahe (WJ), Beras Kencur (BK), dan Kunir Asem (KA).</div>
+            <div class="context-block">
+                Kebutuhan bahan per botol (Jahe dalam gram, Gula Merah dalam gram, Air dalam ml):
+                $$\begin{array}{c|ccc} & J & GM & A \\ \hline WJ & 20 & 15 & 50 \\ BK & 10 & 25 & 40 \\ KA & 12 & 8 & k \end{array}$$
+                Pesanan pada suatu hari: WJ = 100 botol, BK = 120 botol, KA = 80 botol.<br>
+                Total air (A) yang terpakai untuk memenuhi seluruh pesanan tersebut adalah <strong>13.000 ml</strong>.
+            </div>
+            <div class="question-title" style="font-size:1rem;">Banyak air yang dibutuhkan untuk memproduksi satu botol Kunir Asem (KA) adalah ....</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q3" value="A"> A. 30 ml</label></li>
+                <li><label><input type="radio" name="q3" value="B"> B. 35 ml</label></li>
+                <li><label><input type="radio" name="q3" value="C"> C. 40 ml</label></li>
+                <li><label><input type="radio" name="q3" value="D"> D. 45 ml</label></li>
+                <li><label><input type="radio" name="q3" value="E"> E. 50 ml</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint3')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(3, 'C')">Periksa Jawaban</button>
+            </div>
+            <div id="hint3" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Fokus pada kolom Air (A) saja: $(100 \times 50) + (120 \times 40) + (80 \times k) = 13.000$.
+            </div>
+            <div id="ans3" class="answer-box">
+                <strong>Kunci Jawaban: C (40 ml)</strong><br>
+                $5.000 + 4.800 + 80k = 13.000 \implies 80k = 3.200 \implies k = 40\text{ ml}$.
+            </div>
+            <div id="fb3" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 4 -->
+        <div class="card" id="q4">
+            <div class="question-title">4. (Pilihan Ganda Kompleks) Seorang pemilik hotel mengelola 3 hotel dengan tipe kamar sama: Standard, Deluxe, dan Suite Room.</div>
+            <div class="context-block">
+                <table class="data-table">
+                    <tr><th>Tipe Kamar</th><th>Hotel A</th><th>Hotel B</th><th>Hotel C</th><th>Harga / malam</th></tr>
+                    <tr><td>Standard Room</td><td>9</td><td>6</td><td>7</td><td>Rp150.000</td></tr>
+                    <tr><td>Deluxe Room</td><td>6</td><td>7</td><td>5</td><td>Rp500.000</td></tr>
+                    <tr><td>Suite Room</td><td>3</td><td>2</td><td>4</td><td>Rp1.000.000</td></tr>
+                </table>
+            </div>
+            <div class="question-title" style="font-size:1rem;">Bagaimana kondisi pendapatan ketiga hotel tersebut jika semua kamar terisi penuh dalam 1 hari? (Pilih semua jawaban benar)</div>
+            <ul class="options-list">
+                <li><label><input type="checkbox" name="q4" value="A"> A. Pendapatan Hotel A dan Hotel C sama besar.</label></li>
+                <li><label><input type="checkbox" name="q4" value="B"> B. Pendapatan Hotel B lebih besar daripada Hotel A.</label></li>
+                <li><label><input type="checkbox" name="q4" value="C"> C. Pendapatan paling besar diperoleh dari Hotel C.</label></li>
+                <li><label><input type="checkbox" name="q4" value="D"> D. Masing-masing hotel memiliki selisih pendapatan yang sama besar.</label></li>
+                <li><label><input type="checkbox" name="q4" value="E"> E. Pendapatan yang diperoleh dari ketiga hotel tersebut lebih dari Rp20.000.000.</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint4')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkComplexAnswer(4, ['C', 'E'])">Periksa Jawaban</button>
+            </div>
+            <div id="hint4" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                $\text{Pendapatan} = (N_{\text{std}} \times 150.000) + (N_{\text{deluxe}} \times 500.000) + (N_{\text{suite}} \times 1.000.000)$.
+            </div>
+            <div id="ans4" class="answer-box">
+                <strong>Kunci Jawaban: C dan E</strong><br>
+                - Hotel A = $9(150rb)+6(500rb)+3(1jt)$ = Rp7.350.000<br>
+                - Hotel B = $6(150rb)+7(500rb)+2(1jt)$ = Rp6.400.000<br>
+                - Hotel C = $7(150rb)+5(500rb)+4(1jt)$ = Rp7.550.000 (Paling Besar)<br>
+                - Total = Rp21.300.000 (&gt; Rp20.000.000)
+            </div>
+            <div id="fb4" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 5 -->
+        <div class="card" id="q5">
+            <div class="question-title">5. (Pilihan Ganda Kompleks) Di manakah koordinat titik perpotongan grafik fungsi $f(x) = x^3 + 3x^2 - 10x - 24$ terhadap sumbu X? (Pilih semua jawaban benar)</div>
+            <ul class="options-list">
+                <li><label><input type="checkbox" name="q5" value="A"> A. (-2, 0)</label></li>
+                <li><label><input type="checkbox" name="q5" value="B"> B. (-1, 0)</label></li>
+                <li><label><input type="checkbox" name="q5" value="C"> C. (3, 0)</label></li>
+                <li><label><input type="checkbox" name="q5" value="D"> D. (4, 0)</label></li>
+                <li><label><input type="checkbox" name="q5" value="E"> E. (-4, 0)</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint5')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkComplexAnswer(5, ['A', 'C', 'E'])">Periksa Jawaban</button>
+            </div>
+            <div id="hint5" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Titik potong sumbu X terjadi jika $f(x) = 0$. Coba faktor $x=3$ terlebih dahulu (karena $27+27-30-24=0$), lalu faktorkan sisanya.
+            </div>
+            <div id="ans5" class="answer-box">
+                <strong>Kunci Jawaban: (-2, 0), (3, 0), dan (-4, 0)</strong><br>
+                Pemfaktoran: $f(x) = (x - 3)(x + 2)(x + 4) = 0$.
+            </div>
+            <div id="fb5" class="result-feedback"></div>
+        </div>
+    </div>
+
+    <!-- SUB BAB 2: NOMOR 6 - 10 -->
+    <div id="sub2" class="sub-content">
+        <!-- Soal 6 -->
+        <div class="card" id="q6">
+            <div class="question-title">6. Diketahui suku banyak $f(x) = x^4 + ax^3 + bx^2 + x - 6$ apabila dibagi oleh $x^2 + x + 1$ menghasilkan sisa $5x - 1$. Nilai dari $a + b = ...$</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q6" value="A"> A. 11</label></li>
+                <li><label><input type="radio" name="q6" value="B"> B. 5</label></li>
+                <li><label><input type="radio" name="q6" value="C"> C. -1</label></li>
+                <li><label><input type="radio" name="q6" value="D"> D. -5</label></li>
+                <li><label><input type="radio" name="q6" value="E"> E. -7</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint6')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(6, 'C')">Periksa Jawaban</button>
+            </div>
+            <div id="hint6" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Karena $x^2+x+1=0 \Rightarrow x^2 \equiv -x-1$, maka $x^3 \equiv 1$ dan $x^4 \equiv x$. Substitusikan ke $f(x)$ dan samakan dengan sisa $5x-1$.
+            </div>
+            <div id="ans6" class="answer-box">
+                <strong>Kunci Jawaban: C (-1)</strong><br>
+                $f(x) \equiv x + a - b(x+1) + x - 6 = (2-b)x + (a-b-6)$. Samakan dengan $5x-1$: $2-b=5 \Rightarrow b=-3$, dan $a-b-6=-1 \Rightarrow a=2$. Jadi $a+b = 2+(-3) = -1$.<br>
+                <em>(Cek pembagian langsung: $x^4+2x^3-3x^2+x-6 = (x^2+x+1)(x^2+x-5) + (5x-1)$ ✓)</em>
+            </div>
+            <div id="fb6" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 7 -->
+        <div class="card" id="q7">
+            <div class="question-title">7. Fungsi penambahan volume 1 drum adalah $V(T) = 0{,}05T^3 + 0{,}4T^2 + 20T$. Total penambahan volume untuk 10 drum sejenis adalah...</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q7" value="A"> A. $50T^3 + 40T^2 + 200T$</label></li>
+                <li><label><input type="radio" name="q7" value="B"> B. $50T^3 + 4T^2 + 200T$</label></li>
+                <li><label><input type="radio" name="q7" value="C"> C. $5T^3 + 4T^2 + 200T$</label></li>
+                <li><label><input type="radio" name="q7" value="D"> D. $0{,}5T^3 + 4T^2 + 200T$</label></li>
+                <li><label><input type="radio" name="q7" value="E"> E. $0{,}5T^3 + 0{,}4T^2 + 200T$</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint7')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(7, 'D')">Periksa Jawaban</button>
+            </div>
+            <div id="hint7" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Kalikan fungsi volume 1 drum dengan 10: $V_{\text{total}}(T) = 10 \times V(T)$.
+            </div>
+            <div id="ans7" class="answer-box">
+                <strong>Kunci Jawaban: D</strong><br>
+                $10 \times (0{,}05T^3 + 0{,}4T^2 + 20T) = 0{,}5T^3 + 4T^2 + 200T$.
+            </div>
+            <div id="fb7" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 8 -->
+        <div class="card" id="q8">
+            <div class="question-title">8. Modal saham perusahaan $f(x) = x^3 - 70x^2 - 600x + 74.000$ (dalam juta rupiah, $x$ = unit saham). Jika modal 2.000 juta rupiah, tentukan kebenaran penjualan unit saham berikut:</div>
+            <table class="data-table">
+                <tr><th>Pernyataan</th><th>Status</th></tr>
+                <tr><td>30 unit</td><td id="q8-30">Benar/Salah</td></tr>
+                <tr><td>40 unit</td><td id="q8-40">Benar/Salah</td></tr>
+                <tr><td>60 unit</td><td id="q8-60">Benar/Salah</td></tr>
+            </table>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint8')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="toggleElement('ans8')">Lihat Pembahasan</button>
+            </div>
+            <div id="hint8" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Substitusikan $x = 30, 40, 60$ ke $f(x)$ dan bandingkan dengan 2.000.
+            </div>
+            <div id="ans8" class="answer-box">
+                <strong>Kunci Jawaban:</strong><br>
+                - 30 unit: <strong>Salah / Tidak Mungkin</strong> ($f(30) = 20.000 \neq 2.000$)<br>
+                - 40 unit: <strong>Benar / Mungkin</strong> ($f(40) = 2.000$)<br>
+                - 60 unit: <strong>Benar / Mungkin</strong> ($f(60) = 2.000$)<br>
+                <em>Catatan: persamaan $f(x)=2.000$ setara dengan $x^3-70x^2-600x+72.000=0$, yang bila difaktorkan menjadi $(x-40)(x-60)(x+30)=0$ — sehingga $x=40$ dan $x=60$ dua-duanya memenuhi (akar $x=-30$ tidak masuk akal karena unit saham tidak negatif).</em>
+            </div>
+        </div>
+
+        <!-- Soal 9 -->
+        <div class="card" id="q9">
+            <div class="question-title">9. Model populasi kelinci $K(t) = 4 \cdot 2^{\frac{t}{4}}$ (dalam ribu ekor, $t$ dalam tahun). Tentukan kebenaran interpretasi model tersebut!</div>
+
+	<table class="data-table">
+                <tr><th>Pernyataan</th><th>Status</th></tr>
+                <tr><td>Setiap 4 tahun populasi bertambah menjadi 4 kalinya</td><td id="q8-30">Benar/Salah</td></tr>
+                <tr><td>Pada saat awal populasi kelinci berjumlah 4 ribu ekor</td><td id="q8-40">Benar/Salah</td></tr>
+                <tr><td>Populasi mencapai 1 juta ekor sebelum 20 tahun</td><td id="q8-60">Benar/Salah</td></tr>
+            </table>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint9')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="toggleElement('ans9')">Lihat Pembahasan</button>
+            </div>
+            <div id="hint9" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                - Nilai awal: substitusi $t = 0$.<br>
+                - Faktor kelipatan tiap 4 tahun: hitung $K(t+4) / K(t) = 2^1 = 2$.<br>
+                - Untuk "1 juta ekor" ingat satuan $K(t)$ adalah <em>ribu</em> ekor, jadi 1 juta ekor $= 1000$ (dalam satuan $K(t)$).
+            </div>
+            <div id="ans9" class="answer-box">
+                <strong>Kunci Jawaban:</strong><br>
+                1. Setiap 4 tahun populasi bertambah menjadi 4 kalinya — <strong>Salah</strong> (seharusnya menjadi 2 kali lipat, karena $K(t+4)/K(t)=2$).<br>
+                2. Pada saat awal populasi kelinci berjumlah 4 ribu ekor — <strong>Benar</strong> ($K(0) = 4$).<br>
+                3. Populasi mencapai 1 juta ekor sebelum 20 tahun — <strong>Salah</strong>. 1 juta ekor $=1000$ (ribu ekor). Selesaikan $4\cdot2^{t/4}=1000 \Rightarrow 2^{t/4}=250 \Rightarrow t = 4\log_2 250 \approx 31{,}9$ tahun, jauh lebih dari 20 tahun. Sedangkan $K(20)=4\cdot2^5=128$ ribu ekor saja.
+            </div>
+        </div>
+
+        <!-- Soal 10 -->
+        <div class="card" id="q10">
+            <div class="question-title">10. (Pilihan Ganda Kompleks) Pertumbuhan eceng gondok $y(t)$ (m²) diamati selama 3 tahun, dengan data berikut:</div>
+            <div class="diagram-box">
+                <svg viewBox="0 0 380 220" width="380">
+                    <line x1="50" y1="10" x2="50" y2="190" stroke="currentColor" stroke-width="1.5"/>
+                    <line x1="50" y1="190" x2="360" y2="190" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M 50 178 Q 150 170 220 60 Q 260 20 300 12" fill="none" stroke="#06b6d4" stroke-width="2.5"/>
+                    <circle cx="50" cy="178" r="4" fill="#4f46e5"/>
+                    <circle cx="220" cy="60" r="4" fill="#4f46e5"/>
+                    <circle cx="300" cy="12" r="4" fill="#4f46e5"/>
+                    <text x="30" y="182" font-size="11" fill="currentColor">10</text>
+                    <text x="195" y="55" font-size="11" fill="currentColor">70</text>
+                    <text x="275" y="10" font-size="11" fill="currentColor">490</text>
+                    <text x="220" y="205" font-size="11" fill="currentColor" text-anchor="middle">Tahun ke-</text>
+                    <text x="45" y="200" font-size="10" fill="currentColor">0</text>
+                    <text x="220" y="200" font-size="10" fill="currentColor">1</text>
+                    <text x="300" y="200" font-size="10" fill="currentColor">2</text>
+                    <text x="15" y="100" font-size="10" fill="currentColor" transform="rotate(-90 15 100)">Luas (m²)</text>
+                </svg>
+            </div>
+            <div class="diagram-caption">Grafik pertumbuhan eceng gondok pada danau yang diamati (rasio tetap 7 kali tiap tahun)</div>
+            <div class="context-block">
+                Data luas tertutupi setelah 3 tahun pengamatan ($y(3)$) di 5 danau lain:
+                <table class="data-table">
+                    <tr><th>Danau</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+                    <tr><td>$y(3)$ (m²)</td><td>15.000</td><td>16.500</td><td>17.000</td><td>17.500</td><td>18.000</td></tr>
+                </table>
+            </div>
+            <div class="question-title" style="font-size:1rem;">Danau mana yang luas penutupannya $> 49\text{ m}^2$ pada awal pengamatan ($t=0$)? (Pilih semua yang benar)</div>
+            <ul class="options-list">
+                <li><label><input type="checkbox" name="q10" value="A"> A. Danau A (15.000)</label></li>
+                <li><label><input type="checkbox" name="q10" value="B"> B. Danau B (16.500)</label></li>
+                <li><label><input type="checkbox" name="q10" value="C"> C. Danau C (17.000)</label></li>
+                <li><label><input type="checkbox" name="q10" value="D"> D. Danau D (17.500)</label></li>
+                <li><label><input type="checkbox" name="q10" value="E"> E. Danau E (18.000)</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint10')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkComplexAnswer(10, ['C', 'D', 'E'])">Periksa Jawaban</button>
+            </div>
+            <div id="hint10" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Rasio tahunan $r = 70 / 10 = 7$. Maka $y(3) = y_0 \cdot 7^3 = 343 y_0$. Syarat $y_0 > 49 \implies y(3) > 49 \times 343 = 16.807\text{ m}^2$.
+            </div>
+            <div id="ans10" class="answer-box">
+                <strong>Kunci Jawaban: Danau C, Danau D, dan Danau E</strong><br>
+                Danau dengan nilai $y(3) > 16.807\text{ m}^2$ adalah Danau C (17.000), D (17.500), dan E (18.000).
+            </div>
+            <div id="fb10" class="result-feedback"></div>
+        </div>
+    </div>
+
+    <!-- SUB BAB 3: NOMOR 11 - 15 -->
+    <div id="sub3" class="sub-content">
+        <!-- Soal 11 -->
+        <div class="card" id="q11">
+            <div class="question-title">11. Grafik berikut menyatakan perubahan kedalaman air laut di sebuah teluk: $y = a + b \cos\left(\frac{1}{6}\pi t\right)$.</div>
+            <div class="diagram-box">
+                <svg viewBox="0 0 380 200" width="380">
+                    <line x1="40" y1="170" x2="360" y2="170" stroke="currentColor" stroke-width="1.5"/>
+                    <line x1="40" y1="10" x2="40" y2="170" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M 40 30 C 90 30, 110 150, 160 150 S 230 30, 280 30 S 330 150, 340 150"
+                          fill="none" stroke="#06b6d4" stroke-width="2.5"/>
+                    <line x1="40" y1="30" x2="340" y2="30" stroke="#94a3b8" stroke-dasharray="4" stroke-width="1"/>
+                    <line x1="160" y1="150" x2="340" y2="150" stroke="#94a3b8" stroke-dasharray="4" stroke-width="1"/>
+                    <text x="5" y="34" font-size="11" fill="currentColor">14,3 m</text>
+                    <text x="5" y="154" font-size="11" fill="currentColor">10,3 m</text>
+                    <line x1="160" y1="170" x2="160" y2="150" stroke="#94a3b8" stroke-dasharray="2"/>
+                    <line x1="280" y1="170" x2="280" y2="30" stroke="#94a3b8" stroke-dasharray="2"/>
+                    <text x="155" y="185" font-size="11" fill="currentColor">t=6</text>
+                    <text x="275" y="185" font-size="11" fill="currentColor">t=12</text>
+                    <text x="355" y="185" font-size="11" fill="currentColor">t</text>
+                    <text x="20" y="8" font-size="11" fill="currentColor">y</text>
+                </svg>
+            </div>
+            <div class="diagram-caption">Kedalaman maksimum 14,3 m (t=0 dan t=12), minimum 10,3 m (t=6)</div>
+            <div class="question-title" style="font-size:1rem;">Waktu saat kedalaman air laut mencapai 12,3 meter untuk ketiga kalinya setelah pukul 00.00 adalah ....</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q11" value="A"> A. 3 jam</label></li>
+                <li><label><input type="radio" name="q11" value="B"> B. 9 jam</label></li>
+                <li><label><input type="radio" name="q11" value="C"> C. 10 jam</label></li>
+                <li><label><input type="radio" name="q11" value="D"> D. 12 jam</label></li>
+                <li><label><input type="radio" name="q11" value="E"> E. 15 jam</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint11')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(11, 'E')">Periksa Jawaban</button>
+            </div>
+            <div id="hint11" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Dari grafik: maksimum 14,3 m, minimum 10,3 m. Rata-rata $a = 12{,}3$, amplitudo $b = 2$. Selesaikan $\cos\left(\frac{1}{6}\pi t\right) = 0$.
+            </div>
+            <div id="ans11" class="answer-box">
+                <strong>Kunci Jawaban: E (15 jam)</strong><br>
+                $\cos\left(\frac{1}{6}\pi t\right) = 0 \implies \frac{1}{6}\pi t = \frac{\pi}{2}, \frac{3\pi}{2}, \frac{5\pi}{2}, ... \implies t = 3, 9, 15, ...$ jam. Nilai ke-3 terjadi pada $t = 15$.
+            </div>
+            <div id="fb11" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 12 -->
+        <div class="card" id="q12">
+            <div class="question-title">12. Diketahui vektor $\vec{AB} = \begin{pmatrix} 2m \\ m+3 \\ m \end{pmatrix}$. Jika $|\vec{AB}| = 9$, maka nilai $m$ yang memenuhi adalah...</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q12" value="A"> A. -4 atau -3</label></li>
+                <li><label><input type="radio" name="q12" value="B"> B. -4 atau 3</label></li>
+                <li><label><input type="radio" name="q12" value="C"> C. -3 atau 4</label></li>
+                <li><label><input type="radio" name="q12" value="D"> D. 3 atau 4</label></li>
+                <li><label><input type="radio" name="q12" value="E"> E. 4 atau 3</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint12')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(12, 'B')">Periksa Jawaban</button>
+            </div>
+            <div id="hint12" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Panjang vektor $|\vec{AB}| = \sqrt{(2m)^2 + (m+3)^2 + m^2} = 9$.
+            </div>
+            <div id="ans12" class="answer-box">
+                <strong>Kunci Jawaban: B (-4 atau 3)</strong><br>
+                $4m^2 + m^2 + 6m + 9 + m^2 = 81 \implies 6m^2 + 6m - 72 = 0 \implies m^2 + m - 12 = 0 \implies m = -4 \text{ atau } 3$.
+            </div>
+            <div id="fb12" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 13 -->
+        <div class="card" id="q13">
+            <div class="question-title">13. Diketahui trapesium sama kaki ABCD dengan $AD = BC$ dan titik $A(0,0)$. Vektor-vektor posisi pembentuk trapesium adalah $\vec{AD} = \begin{pmatrix}1\\4\end{pmatrix}$, $\vec{AB} = \begin{pmatrix}6\\0\end{pmatrix}$, dan $\vec{BC} = \begin{pmatrix}a\\b\end{pmatrix}$. Nilai $a^2 + 2b = ...$</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q13" value="A"> A. 5</label></li>
+                <li><label><input type="radio" name="q13" value="B"> B. 7</label></li>
+                <li><label><input type="radio" name="q13" value="C"> C. 9</label></li>
+                <li><label><input type="radio" name="q13" value="D"> D. 10</label></li>
+                <li><label><input type="radio" name="q13" value="E"> E. 13</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint13')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(13, 'C')">Periksa Jawaban</button>
+            </div>
+            <div id="hint13" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                $DC$ harus sejajar $AB$ (sisi sejajar trapesium) sehingga komponen-$y$ dari $BC$ sama dengan $AD$ yaitu $b=4$. Karena sama kaki, $|AD|=|BC|$, sehingga $a^2+16=17 \implies a=\pm1$; ambil $a=-1$ agar bentuknya simetris.
+            </div>
+            <div id="ans13" class="answer-box">
+                <strong>Kunci Jawaban: C (9)</strong><br>
+                $a = -1, b = 4 \implies a^2 + 2b = (-1)^2 + 2(4) = 1 + 8 = 9$.
+            </div>
+            <div id="fb13" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 14 -->
+        <div class="card" id="q14">
+            <div class="question-title">14. (Pilihan Ganda Kompleks) Kereta api melaju konstan dari stasiun A(2,3,5) km ke stasiun E(11,6,8) km dalam waktu 13 menit.</div>
+            <div class="diagram-box">
+                <svg viewBox="0 0 400 90" width="400">
+                    <line x1="30" y1="45" x2="370" y2="45" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="30" cy="45" r="5" fill="#4f46e5"/>
+                    <circle cx="120" cy="45" r="5" fill="#4f46e5"/>
+                    <circle cx="190" cy="45" r="5" fill="#4f46e5"/>
+                    <circle cx="230" cy="45" r="5" fill="#4f46e5"/>
+                    <circle cx="300" cy="45" r="5" fill="#4f46e5"/>
+                    <text x="30" y="30" font-size="13" fill="currentColor" text-anchor="middle">A</text>
+                    <text x="120" y="30" font-size="13" fill="currentColor" text-anchor="middle">B</text>
+                    <text x="190" y="30" font-size="13" fill="currentColor" text-anchor="middle">C</text>
+                    <text x="230" y="65" font-size="13" fill="currentColor" text-anchor="middle">D</text>
+                    <text x="300" y="30" font-size="13" fill="currentColor" text-anchor="middle">E</text>
+                    <text x="75" y="65" font-size="10" fill="currentColor" text-anchor="middle">5 menit</text>
+                    <text x="155" y="65" font-size="10" fill="currentColor" text-anchor="middle">3 menit</text>
+                    <text x="210" y="30" font-size="10" fill="currentColor" text-anchor="middle">2mn</text>
+                    <text x="265" y="65" font-size="10" fill="currentColor" text-anchor="middle">3 menit</text>
+                    <text x="185" y="82" font-size="10" fill="currentColor" text-anchor="middle">Arah laju kereta →</text>
+                </svg>
+            </div>
+            <div class="question-title" style="font-size:1rem;">Manakah pasangan stasiun yang jaraknya kurang dari 3,5 km? (Pilih semua jawaban benar)</div>
+            <ul class="options-list">
+                <li><label><input type="checkbox" name="q14" value="AB"> AB (5 menit)</label></li>
+                <li><label><input type="checkbox" name="q14" value="BC"> BC (3 menit)</label></li>
+                <li><label><input type="checkbox" name="q14" value="CD"> CD (2 menit)</label></li>
+                <li><label><input type="checkbox" name="q14" value="DE"> DE (3 menit)</label></li>
+                <li><label><input type="checkbox" name="q14" value="CE"> CE (5 menit)</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint14')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkComplexAnswer(14, ['BC', 'CD', 'DE'])">Periksa Jawaban</button>
+            </div>
+            <div id="hint14" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Jarak $AE = \sqrt{(11-2)^2 + (6-3)^2 + (8-5)^2} = \sqrt{81+9+9} = \sqrt{99} \approx 9{,}95\text{ km}$.<br>
+                Kecepatan kereta $v = \frac{9{,}95}{13} \approx 0{,}765\text{ km/menit}$.
+            </div>
+            <div id="ans14" class="answer-box">
+                <strong>Kunci Jawaban: BC, CD, dan DE</strong><br>
+                Segmen dengan waktu $\le 3$ menit memiliki jarak $\le 3 \times 0{,}765 = 2{,}295\text{ km} < 3{,}5\text{ km}$. Segmen AB dan CE (masing-masing 5 menit) berjarak $\approx 3{,}83\text{ km} > 3{,}5\text{ km}$.
+            </div>
+            <div id="fb14" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 15 -->
+        <div class="card" id="q15">
+            <div class="question-title">15. Perhatikan gambar lingkaran A berikut, dengan diameter 4 satuan.</div>
+            <div class="diagram-box">
+                <svg viewBox="0 0 220 220" width="220">
+                    <line x1="10" y1="110" x2="210" y2="110" stroke="#cbd5e1" stroke-width="1"/>
+                    <line x1="110" y1="10" x2="110" y2="210" stroke="#cbd5e1" stroke-width="1"/>
+                    <circle cx="70" cy="70" r="42" fill="none" stroke="#4f46e5" stroke-width="2"/>
+                    <circle cx="70" cy="70" r="3" fill="#4f46e5"/>
+                    <circle cx="30" cy="30" r="4" fill="#06b6d4"/>
+                    <circle cx="110" cy="110" r="4" fill="#06b6d4"/>
+                    <line x1="30" y1="30" x2="110" y2="110" stroke="#06b6d4" stroke-width="1.5"/>
+                    <text x="75" y="65" font-size="11" fill="currentColor">P</text>
+                    
+                    <text x="200" y="120" font-size="11" fill="currentColor">0</text>
+                </svg>
+            </div>
+            <div class="diagram-caption">Pusat lingkaran A berada di titik $(-3, 4)$</div>
+            <div class="question-title" style="font-size:1rem;">Persamaan lingkaran yang sepusat dengan lingkaran pada gambar tersebut adalah ....</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q15" value="A"> A. $x^2 + 6x + y^2 - 8y + 16 = 0$</label></li>
+                <li><label><input type="radio" name="q15" value="B"> B. $x^2 - 6x + y^2 - 8y + 21 = 0$</label></li>
+                <li><label><input type="radio" name="q15" value="C"> C. $x^2 + 6x + y^2 + 8y + 16 = 0$</label></li>
+                <li><label><input type="radio" name="q15" value="D"> D. $x^2 - 8x + y^2 - 6y + 16 = 0$</label></li>
+                <li><label><input type="radio" name="q15" value="E"> E. $x^2 + 8x + y^2 - 6y + 21 = 0$</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint15')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(15, 'A')">Periksa Jawaban</button>
+            </div>
+            <div id="hint15" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Bentuk umum lingkaran pusat $(a,b)$ adalah $(x-a)^2 + (y-b)^2 = r^2 \implies x^2 + y^2 - 2ax - 2by + c = 0$. Lingkaran yang sepusat hanya perlu memiliki koefisien $x$ dan $y$ yang sama (nilai $c$/radius boleh berbeda).
+            </div>
+            <div id="ans15" class="answer-box">
+                <strong>Kunci Jawaban: A</strong><br>
+                Pusat $(-3, 4) \implies x^2 + y^2 + 6x - 8y + c = 0$. Hanya pilihan A yang memiliki bentuk persis tersebut ($+6x, -8y$).
+            </div>
+            <div id="fb15" class="result-feedback"></div>
+        </div>
+    </div>
+
+    <!-- SUB BAB 4: NOMOR 16 - 20 -->
+    <div id="sub4" class="sub-content">
+        <!-- Soal 16 -->
+        <div class="card" id="q16">
+            <div class="question-title">16. (Pilihan Ganda Kompleks) Perhatikan gambar berikut: garis $f$ melalui $C(-1,0)$ dan $D(0,2)$; lingkaran $c$ berpusat di $A(2,-3)$ dan melalui titik $B(3,-1)$.</div>
+            <div class="diagram-box">
+                <svg viewBox="0 0 320 400" width="500">
+                    <line x1="10" y1="270" x2="310" y2="270" stroke="#cbd5e1" stroke-width="1"/>
+                    <line x1="60" y1="10" x2="60" y2="310" stroke="#cbd5e1" stroke-width="1"/>
+                    <line x1="20" y1="330" x2="280" y2="70" stroke="#4f46e5" stroke-width="2"/>
+                    <circle cx="60" cy="270" r="4" fill="#4f46e5"/>
+                    <text x="45" y="290" font-size="11" fill="currentColor">C(-1,0)</text>
+                    <circle cx="110" cy="220" r="4" fill="#4f46e5"/>
+                    <text x="115" y="215" font-size="11" fill="currentColor">D(0,2)</text>
+                    <circle cx="160" cy="320" r="60" fill="none" stroke="#06b6d4" stroke-width="2"/>
+                    <circle cx="160" cy="320" r="3" fill="#06b6d4"/>
+                    <text x="165" y="325" font-size="11" fill="currentColor">A(2,-3)</text>
+                    <circle cx="210" cy="270" r="4" fill="#f59e0b"/>
+                    <text x="215" y="265" font-size="11" fill="currentColor">B(3,-1)</text>
+                </svg>
+            </div>
+            <div class="diagram-caption">Garis $f$ (biru) memotong sumbu di C dan D — gradiennya $m_f=2$</div>
+            <div class="question-title" style="font-size:1rem;">Tentukan semua koordinat titik singgung lingkaran dari garis-garis singgung lingkaran yang tegak lurus terhadap garis $f$! (Pilih semua yang benar)</div>
+            <ul class="options-list">
+                <li><label><input type="checkbox" name="q16" value="A"> A. (3, 1)</label></li>
+                <li><label><input type="checkbox" name="q16" value="B"> B. (1, -5)</label></li>
+                <li><label><input type="checkbox" name="q16" value="C"> C. (-1, 5)</label></li>
+                <li><label><input type="checkbox" name="q16" value="D"> D. (3, -1)</label></li>
+                <li><label><input type="checkbox" name="q16" value="E"> E. (-3, -1)</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint16')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkComplexAnswer(16, ['B', 'D'])">Periksa Jawaban</button>
+            </div>
+            <div id="hint16" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Gradien garis $f$ (melalui C(-1,0) dan D(0,2)) adalah $m_f = 2$. Jari-jari lingkaran $r = |AB| = \sqrt{(3-2)^2+(-1+3)^2} = \sqrt5$. Titik singgung $= A \pm r \cdot \left(\frac{1}{\sqrt5}, \frac{2}{\sqrt5}\right)$ (arah tegak lurus garis singgung, sejajar $f$).
+            </div>
+            <div id="ans16" class="answer-box">
+                <strong>Kunci Jawaban: (3, -1) dan (1, -5)</strong><br>
+                Titik singgung $= (2,-3) \pm (1,2) = (3,-1)$ atau $(1,-5)$. Perhatikan titik B$(3,-1)$ pada gambar sudah merupakan salah satu titik singgungnya!
+            </div>
+            <div id="fb16" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 17 -->
+        <div class="card" id="q17">
+            <div class="question-title">17. Rumah makan memasang rambu mirip simbol pertolongan pertama (palang merah) berukuran 40cm × 40cm.</div>
+            <div class="diagram-box">
+                <svg viewBox="0 0 240 240" width="240">
+                    <rect x="10" y="10" width="220" height="220" fill="#3b82f6" stroke="#1e293b" stroke-width="1"/>
+                    <circle cx="120" cy="120" r="100" fill="#0f172a"/>
+                    <circle cx="120" cy="120" r="70" fill="#ffffff"/>
+                    <rect x="95" y="60" width="50" height="120" fill="#ef4444"/>
+                    <rect x="60" y="95" width="120" height="50" fill="#ef4444"/>
+                    <line x1="10" y1="8" x2="230" y2="8" stroke="currentColor" stroke-width="1"/>
+                    <text x="120" y="4" font-size="10" fill="currentColor" text-anchor="middle">40 cm</text>
+                    <text x="70" y="90" font-size="9" fill="currentColor">10 cm</text>
+                    <text x="140" y="90" font-size="9" fill="currentColor">10 cm</text>
+                    <line x1="120" y1="120" x2="190" y2="120" stroke="#fde68a" stroke-dasharray="3" stroke-width="1"/>
+                    <text x="150" y="115" font-size="9" fill="#fde68a">14 cm</text>
+                </svg>
+            </div>
+            <div class="diagram-caption">Skema rambu (proporsi ilustratif): kotak biru 40×40 cm, cincin hitam, lingkaran putih (jari-jari 14 cm), palang merah (lebar lengan 10 cm)</div>
+            <div class="question-title" style="font-size:1rem;">Cat warna apakah yang pemakaiannya lebih banyak dibanding cat warna hitam pada rambu lalu lintas tersebut? (Pilih semua jawaban benar)</div>
+            <ul class="options-list">
+                <li><label><input type="checkbox" name="q17" value="A"> A. Setengah hitam dan biru.</label></li>
+                <li><label><input type="checkbox" name="q17" value="B"> B. Setengah hitam dan merah.</label></li>
+                <li><label><input type="checkbox" name="q17" value="C"> C. Setengah hitam dan putih.</label></li>
+                <li><label><input type="checkbox" name="q17" value="D"> D. Biru dan putih.</label></li>
+                <li><label><input type="checkbox" name="q17" value="E"> E. Biru dan merah.</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint17')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkComplexAnswer(17, ['D'])">Periksa Jawaban</button>
+            </div>
+            <div id="hint17" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Luas Total kotak $= 40 \times 40 = 1.600\text{ cm}^2$. Luas cincin hitam (lingkaran besar dikurangi lingkaran putih di dalamnya), luas putih (lingkaran putih dikurangi luas palang merah), luas merah (palang), dan luas biru (empat sudut kotak di luar lingkaran besar $=1600-\pi r_{luar}^2$). Bandingkan tiap luas warna dengan luas hitam.
+            </div>
+            <div id="ans17" class="answer-box">
+                <strong>Kunci Jawaban: Biru dan putih</strong><br>
+                Berdasarkan perhitungan luas tiap warna dari data ukuran pada gambar, warna Biru dan Putih memiliki luas yang lebih besar dibanding warna Hitam.<br>
+                <em>Catatan: soal ini bergantung pada detail ukuran gambar asli — disarankan cek ulang hasil perhitunganmu dengan gambar asli di soal PDF/website m4th-lab untuk memastikan proporsinya.</em>
+            </div>
+            <div id="fb17" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 18 -->
+        <div class="card" id="q18">
+            <div class="question-title">18. Pak Baskara membuat ornamen kaca patri berbentuk lingkaran, dengan kerangka logam berbentuk kombinasi lingkaran dan "belah ketupat" (segi empat) di dalamnya.</div>
+            <div class="diagram-box">
+                <svg viewBox="0 0 260 260" width="260">
+                    <circle cx="130" cy="130" r="100" fill="none" stroke="#4f46e5" stroke-width="2.5"/>
+                    <polygon points="130,30 230,130 130,230 30,130" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+                    <path d="M 130 30 A 100 100 0 0 1 230 130 Z" fill="#ef4444" opacity="0.35"/>
+                    <path d="M 230 130 A 100 100 0 0 1 130 230 Z" fill="#ef4444" opacity="0.35"/>
+                    <path d="M 130 230 A 100 100 0 0 1 30 130 Z" fill="#ef4444" opacity="0.35"/>
+                    <path d="M 30 130 A 100 100 0 0 1 130 30 Z" fill="#ef4444" opacity="0.35"/>
+                    <text x="130" y="130" font-size="11" fill="currentColor" text-anchor="middle">R</text>
+                </svg>
+            </div>
+            <div class="diagram-caption">Kerangka = keliling lingkaran (jari-jari $R$) + 4 sisi belah ketupat (diagonal = diameter lingkaran). Segmen merah = 1 potong kaca merah, luas $456\text{ cm}^2$.</div>
+            <div class="context-block">
+                Luas 1 potong kaca merah $= 456\text{ cm}^2$, gunakan $\pi \approx 3{,}14$ dan $\sqrt2 \approx 1{,}4$.<br>
+                Pilihan logam yang tersedia:
+                <table class="data-table">
+                    <tr><th>Jenis Logam</th><th>Logam A</th><th>Logam B</th><th>Logam C</th></tr>
+                    <tr><td>Panjang</td><td>4 m</td><td>5 m</td><td>6,5 m</td></tr>
+                </table>
+                Logam dikatakan <strong>Pas</strong> jika panjangnya cukup untuk membuat kerangka dan sisanya tidak lebih dari 1 meter.
+            </div>
+            <div class="question-title" style="font-size:1rem;">Tentukan apakah pilihan logam berikut Pas atau Tidak Pas:</div>
+            <table class="data-table">
+                <tr><th>Pilihan</th><th>Status</th></tr>
+                <tr><td>Membeli 2 buah Logam A (8 m)</td><td id="q18-a">Benar/Salah</td></tr>
+                <tr><td>Membeli 1 buah Logam B (5 m)</td><td id="q18-b">Benar/Salah</td></tr>
+                <tr><td>Membeli 1 buah Logam C (6,5 m)</td><td id="q18-c">Benar/Salah</td></tr>
+            </table>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint18')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="toggleElement('ans18')">Lihat Pembahasan</button>
+            </div>
+            <div id="hint18" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Setiap segmen merah adalah luas lingkaran dikurangi luas "belah ketupat" (persegi diagonal), dibagi 4: $\dfrac{\pi R^2 - 2R^2}{4} = 456$. Panjang kerangka $K = 2\pi R + 4(R\sqrt2)$ (keliling lingkaran + 4 sisi belah ketupat).
+            </div>
+            <div id="ans18" class="answer-box">
+                <strong>Kunci Jawaban:</strong><br>
+                $\dfrac{R^2(\pi-2)}{4}=456 \Rightarrow R^2 = \dfrac{456\times4}{1{,}14} \approx 1.600 \Rightarrow R = 40\text{ cm}$.<br>
+                Keliling lingkaran $=2\pi R = 2(3{,}14)(40)=251{,}2$ cm. Sisi belah ketupat $=R\sqrt2 \approx 40(1{,}4)=56$ cm, total 4 sisi $=224$ cm.<br>
+                Total kerangka $\approx 251{,}2+224=475{,}2\text{ cm}\approx4{,}75\text{ m}$.<br>
+                - 2 buah Logam A (800 cm): sisa $\approx 324{,}8$ cm ($>1$ m) → <strong>Tidak Pas</strong><br>
+                - 1 buah Logam B (500 cm): sisa $\approx 24{,}8$ cm ($\le 1$ m) → <strong>Pas</strong><br>
+                - 1 buah Logam C (650 cm): sisa $\approx 174{,}8$ cm ($>1$ m) → <strong>Tidak Pas</strong>
+            </div>
+        </div>
+
+        <!-- Soal 19 -->
+        <div class="card" id="q19">
+            <div class="question-title">19. Garis $ax+y-9=0$ dan $x+by+6=0$ dicerminkan terhadap $y=x$ lalu ditranslasi $T\begin{pmatrix}1\\-1\end{pmatrix}$ menghasilkan $x+2y-8=0$ dan $2x-y-9=0$. Nilai $2a-b = ...$</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q19" value="A"> A. -6</label></li>
+                <li><label><input type="radio" name="q19" value="B"> B. -2</label></li>
+                <li><label><input type="radio" name="q19" value="C"> C. 0</label></li>
+                <li><label><input type="radio" name="q19" value="D"> D. 2</label></li>
+                <li><label><input type="radio" name="q19" value="E"> E. 6</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint19')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(19, 'E')">Periksa Jawaban</button>
+            </div>
+            <div id="hint19" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Lakukan transformasi balik (invers): translasi balik $(x,y)=(x'-1,y'+1)$, lalu substitusikan ke garis hasil pencerminan (tukar $x$ dan $y$ pada garis asal).
+            </div>
+            <div id="ans19" class="answer-box">
+                <strong>Kunci Jawaban: E (6)</strong><br>
+                Diperoleh nilai $a = 2$ dan $b = -2$, sehingga $2a - b = 2(2) - (-2) = 6$.
+            </div>
+            <div id="fb19" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 20 -->
+        <div class="card" id="q20">
+            <div class="question-title">20. Lingkaran L berpusat di $(-5,3)$ dan $r=2$. $L'$ bayangan oleh $T$. $L''$: $(x+4)^2 + (y-4)^2 = 16$ bayangan $L'$ oleh dilatasi $[O, k]$. Pernyataan yang benar mengenai $T$ dan $k$ adalah...</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q20" value="A"> A. $T=\begin{pmatrix}3\\-1\end{pmatrix}$ dan $k=8$</label></li>
+                <li><label><input type="radio" name="q20" value="B"> B. $T=\begin{pmatrix}3\\-1\end{pmatrix}$ dan $k=4$</label></li>
+                <li><label><input type="radio" name="q20" value="C"> C. $T=\begin{pmatrix}3\\-1\end{pmatrix}$ dan $k=2$</label></li>
+                <li><label><input type="radio" name="q20" value="D"> D. $T=\begin{pmatrix}1\\1\end{pmatrix}$ dan $k=2$</label></li>
+                <li><label><input type="radio" name="q20" value="E"> E. $T=\begin{pmatrix}1\\1\end{pmatrix}$ dan $k=8$</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint20')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(20, 'C')">Periksa Jawaban</button>
+            </div>
+            <div id="hint20" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Skala dilatasi $k = \frac{r''}{r'} = \frac{4}{2} = 2$ (translasi tidak mengubah radius). Pusat $L''(-4,4) \implies$ Pusat $L' = (-4/k, 4/k) = (-2,2)$.
+            </div>
+            <div id="ans20" class="answer-box">
+                <strong>Kunci Jawaban: C</strong><br>
+                Translasi $T = \begin{pmatrix}-2 - (-5) \\ 2 - 3\end{pmatrix} = \begin{pmatrix}3\\-1\end{pmatrix}$ dan skala $k = 2$.
+            </div>
+            <div id="fb20" class="result-feedback"></div>
+        </div>
+    </div>
+
+    <!-- SUB BAB 5: NOMOR 21 - 25 -->
+    <div id="sub5" class="sub-content">
+        <!-- Soal 21 -->
+        <div class="card" id="q21">
+            <div class="question-title">21. (Pilihan Ganda Kompleks) Garis $l$ adalah bayangan $3x+2y=6$ dirotasi $90^\circ$ berlawanan arah jarum jam dengan pusat $(2, 0)$. Titik yang terletak pada garis $l$ adalah... (Pilih semua yang benar)</div>
+            <ul class="options-list">
+                <li><label><input type="checkbox" name="q21" value="A"> (-3, -2)</label></li>
+                <li><label><input type="checkbox" name="q21" value="B"> (-2, -1)</label></li>
+                <li><label><input type="checkbox" name="q21" value="C"> (1, 2)</label></li>
+                <li><label><input type="checkbox" name="q21" value="D"> (2, 0)</label></li>
+                <li><label><input type="checkbox" name="q21" value="E"> (5, 2)</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint21')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkComplexAnswer(21, ['D', 'E'])">Periksa Jawaban</button>
+            </div>
+            <div id="hint21" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Rotasi $+90^\circ$ pusat $(a,b)$: $x' - a = -(y - b)$ dan $y' - b = x - a$.
+            </div>
+            <div id="ans21" class="answer-box">
+                <strong>Kunci Jawaban: (2, 0) dan (5, 2)</strong><br>
+                Persamaan garis bayangan $l$ adalah $2x - 3y = 4$. Titik $(2,0)$ dan $(5,2)$ memenuhi persamaan tersebut.
+            </div>
+            <div id="fb21" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 22 -->
+        <div class="card" id="q22">
+            <div class="question-title">22. Nilai dari $\lim_{x \to 3} \frac{x^3 - 3x^2 + 2x + 1}{5 + 3x - 9x^2} = ...$</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q22" value="A"> A. $-\frac{7}{67}$</label></li>
+                <li><label><input type="radio" name="q22" value="B"> B. $-\frac{6}{67}$</label></li>
+                <li><label><input type="radio" name="q22" value="C"> C. $\frac{6}{76}$</label></li>
+                <li><label><input type="radio" name="q22" value="D"> D. $\frac{7}{67}$</label></li>
+                <li><label><input type="radio" name="q22" value="E"> E. $-\frac{7}{76}$</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint22')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(22, 'A')">Periksa Jawaban</button>
+            </div>
+            <div id="hint22" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Lakukan substitusi langsung $x = 3$ karena penyebut tidak nol di $x=3$ (bukan bentuk tak tentu $\frac{0}{0}$).
+            </div>
+            <div id="ans22" class="answer-box">
+                <strong>Kunci Jawaban: A ($-\frac{7}{67}$)</strong><br>
+                Pembilang: $3^3 - 3(3)^2 + 2(3) + 1 = 7$.<br>
+                Penyebut: $5 + 3(3) - 9(3)^2 = 5 + 9 - 81 = -67$.
+            </div>
+            <div id="fb22" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 23 -->
+        <div class="card" id="q23">
+            <div class="question-title">23. Keuntungan dagang $K(p) = \frac{9p^2 + 2p + 10}{3p^2 + 3p + 2}$ (dalam jutaan rupiah). Keuntungan untuk porsi $p$ sangat banyak ($p \to \infty$) adalah...</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q23" value="A"> A. Rp2.000.000,00</label></li>
+                <li><label><input type="radio" name="q23" value="B"> B. Rp3.000.000,00</label></li>
+                <li><label><input type="radio" name="q23" value="C"> C. Rp5.000.000,00</label></li>
+                <li><label><input type="radio" name="q23" value="D"> D. Rp9.000.000,00</label></li>
+                <li><label><input type="radio" name="q23" value="E"> E. Rp10.000.000,00</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint23')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(23, 'B')">Periksa Jawaban</button>
+            </div>
+            <div id="hint23" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Limit tak hingga untuk pangkat tertinggi sama: $\lim_{p \to \infty} \frac{a p^2 + ...}{b p^2 + ...} = \frac{a}{b}$.
+            </div>
+            <div id="ans23" class="answer-box">
+                <strong>Kunci Jawaban: B (Rp3.000.000,00)</strong><br>
+                $\lim_{p \to \infty} K(p) = \frac{9}{3} = 3$ Juta rupiah = Rp3.000.000,00.
+            </div>
+            <div id="fb23" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 24 -->
+        <div class="card" id="q24">
+            <div class="question-title">24. (Pilihan Ganda Kompleks) Segitiga sama kaki ABC dengan AB sebagai diameter setengah lingkaran di atasnya, membentuk daerah seperti "es krim". Sudut puncak di C adalah $\theta$.</div>
+            <div class="diagram-box">
+                <svg viewBox="0 0 240 200" width="240">
+                    <path d="M 60 90 A 60 60 0 0 1 180 90" fill="none" stroke="#06b6d4" stroke-width="2.5"/>
+                    <line x1="60" y1="90" x2="180" y2="90" stroke="currentColor" stroke-width="1"/>
+                    <line x1="60" y1="90" x2="120" y2="180" stroke="#f59e0b" stroke-width="2.5"/>
+                    <line x1="180" y1="90" x2="120" y2="180" stroke="#f59e0b" stroke-width="2.5"/>
+                    <text x="55" y="85" font-size="12" fill="currentColor">A</text>
+                    <text x="185" y="85" font-size="12" fill="currentColor">B</text>
+                    <text x="120" y="196" font-size="12" fill="currentColor" text-anchor="middle">C</text>
+                    <text x="120" y="165" font-size="11" fill="currentColor" text-anchor="middle">θ</text>
+                </svg>
+            </div>
+            <div class="diagram-caption">$X$ = luas segitiga ABC, $Y$ = luas setengah lingkaran (diameter AB)</div>
+            <div class="question-title" style="font-size:1rem;">Manakah pernyataan berikut yang benar mengenai $\lim_{\theta \to a} \frac{X}{Y}$? (Pilih semua yang benar)</div>
+            <ul class="options-list">
+                <li><label><input type="checkbox" name="q24" value="A"> A. Besar jari-jari mempengaruhi nilai limit.</label></li>
+                <li><label><input type="checkbox" name="q24" value="B"> B. Besar sudut tidak mempengaruhi nilai limit.</label></li>
+                <li><label><input type="checkbox" name="q24" value="C"> C. Nilai $\frac{X}{Y}$ selalu sama untuk berapa pun $\theta$.</label></li>
+                <li><label><input type="checkbox" name="q24" value="D"> D. $\lim_{\theta \to \frac{\pi}{6}} \frac{X}{Y} = \frac{2}{\pi}$</label></li>
+                <li><label><input type="checkbox" name="q24" value="E"> E. Jika $\theta = \pi$ maka $\frac{X}{Y} = 0$</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint24')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkComplexAnswer(24, ['E'])">Periksa Jawaban</button>
+            </div>
+            <div id="hint24" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Misal $r$ = jari-jari setengah lingkaran ($AB=2r$). Luas segitiga $X = r^2\cot\left(\frac{\theta}{2}\right)$, luas $Y=\frac{1}{2}\pi r^2$. Perhatikan bahwa $r$ hilang (tercoret) pada rasio $\frac{X}{Y}=\frac{2}{\pi}\cot\left(\frac{\theta}{2}\right)$.
+            </div>
+            <div id="ans24" class="answer-box">
+                <strong>Kunci Jawaban: E</strong><br>
+                $\frac{X}{Y}=\frac{2}{\pi}\cot\left(\frac{\theta}{2}\right)$ — nilai ini <em>tidak</em> bergantung pada jari-jari (A salah), tetapi <em>bergantung</em> pada sudut $\theta$ (B dan C salah).<br>
+                Saat $\theta=\frac{\pi}{6}$: $\frac{X}{Y}=\frac{2}{\pi}\cot\left(\frac{\pi}{12}\right)$ ❌(Salah).<br>
+                Saat $\theta=\pi$: segitiga menjadi garis lurus (tinggi = 0) sehingga $X=0$, jadi $\frac{X}{Y}=0$ ✓ (E benar).
+            </div>
+            <div id="fb24" class="result-feedback"></div>
+        </div>
+
+        <!-- Soal 25 -->
+        <div class="card" id="q25">
+            <div class="question-title">25. Nilai dari $\lim_{x \to 3} \frac{1 - \cos(6x - 18)}{\left(x - \frac{9}{x}\right) \sin(6x - 18)} = ...$</div>
+            <ul class="options-list">
+                <li><label><input type="radio" name="q25" value="A"> A. $-\frac{3}{2}$</label></li>
+                <li><label><input type="radio" name="q25" value="B"> B. $-\frac{2}{3}$</label></li>
+                <li><label><input type="radio" name="q25" value="C"> C. $0$</label></li>
+                <li><label><input type="radio" name="q25" value="D"> D. $\frac{2}{3}$</label></li>
+                <li><label><input type="radio" name="q25" value="E"> E. $\frac{3}{2}$</label></li>
+            </ul>
+            <div class="action-btns">
+                <button class="btn btn-hint" onclick="toggleElement('hint25')">💡 Hint Rumus</button>
+                <button class="btn btn-check" onclick="checkAnswer(25, 'E')">Periksa Jawaban</button>
+            </div>
+            <div id="hint25" class="hint-box">
+                <strong>Hint Rumus:</strong><br>
+                Misalkan $u=x-3\to0$. Perhatikan bahwa $x-\frac{9}{x}=\frac{x^2-9}{x}=\frac{(x-3)(x+3)}{x}$ juga menuju $0$ — jadi penyebut sama-sama berorde 2 terhadap $u$ seperti pembilang, bukan berorde 1! Gunakan $1-\cos(6u)\approx 18u^2$ dan $\sin(6u)\approx 6u$.
+            </div>
+            <div id="ans25" class="answer-box">
+                <strong>Kunci Jawaban: E ($\frac{3}{2}$)</strong><br>
+                Untuk $u=x-3\to0$: pembilang $1-\cos(6u)\approx 18u^2$. Penyebut: $\left(x-\frac{9}{x}\right)\approx 2u$ dan $\sin(6u)\approx6u$, sehingga penyebut $\approx (2u)(6u)=12u^2$.<br>
+                Limit $=\dfrac{18u^2}{12u^2}=\dfrac{3}{2}$.
+            </div>
+            <div id="fb25" class="result-feedback"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function renderMath() {
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise();
+        }
+    }
+
+    function switchTab(subIndex) {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.sub-content');
+
+        tabs.forEach(tab => tab.classList.remove('active'));
+        contents.forEach(content => content.classList.remove('active'));
+
+        tabs[subIndex - 1].classList.add('active');
+        document.getElementById(`sub${subIndex}`).classList.add('active');
+
+        renderMath();
+    }
+
+    function toggleElement(id) {
+        const el = document.getElementById(id);
+        if (el.style.display === "block") {
+            el.style.display = "none";
+        } else {
+            el.style.display = "block";
+            renderMath();
+            if (id === 'ans8') {
+                document.getElementById('q8-30').innerHTML = "<span style='color:var(--danger)'>Salah</span>";
+                document.getElementById('q8-40').innerHTML = "<span style='color:var(--success)'>Benar</span>";
+                document.getElementById('q8-60').innerHTML = "<span style='color:var(--success)'>Benar</span>";
+            }
+            if (id === 'ans18') {
+                document.getElementById('q18-a').innerHTML = "<span style='color:var(--danger)'>Tidak Pas</span>";
+                document.getElementById('q18-b').innerHTML = "<span style='color:var(--success)'>Pas</span>";
+                document.getElementById('q18-c').innerHTML = "<span style='color:var(--danger)'>Tidak Pas</span>";
+            }
+        }
+    }
+
+    function checkAnswer(qNum, correctOpt) {
+        const selected = document.querySelector(`input[name="q${qNum}"]:checked`);
+        const fb = document.getElementById(`fb${qNum}`);
+        const ansBox = document.getElementById(`ans${qNum}`);
+
+        if (!selected) {
+            fb.innerHTML = "<span style='color: var(--warning)'>Pilih salah satu jawaban terlebih dahulu!</span>";
+            return;
+        }
+
+        if (selected.value === correctOpt) {
+            fb.innerHTML = "<span style='color: var(--success)'>🎉 Benar! Jawaban Anda tepat.</span>";
+        } else {
+            fb.innerHTML = `<span style='color: var(--danger)'>❌ Kurang tepat. Jawaban yang benar adalah (${correctOpt}).</span>`;
+        }
+        ansBox.style.display = "block";
+        renderMath();
+    }
+
+    function checkComplexAnswer(qNum, correctArr) {
+        const selectedElements = document.querySelectorAll(`input[name="q${qNum}"]:checked`);
+        const fb = document.getElementById(`fb${qNum}`);
+        const ansBox = document.getElementById(`ans${qNum}`);
+
+        const selectedValues = Array.from(selectedElements).map(el => el.value);
+
+        if (selectedValues.length === 0) {
+            fb.innerHTML = "<span style='color: var(--warning)'>Pilih minimal satu jawaban!</span>";
+            return;
+        }
+
+        const isCorrect = correctArr.length === selectedValues.length &&
+                          correctArr.every(val => selectedValues.includes(val));
+
+        if (isCorrect) {
+            fb.innerHTML = "<span style='color: var(--success)'>🎉 Sempurna! Semua pilihan Anda benar.</span>";
+        } else {
+            fb.innerHTML = `<span style='color: var(--danger)'>❌ Masih ada pilihan yang keliru. Jawaban yang benar: ${correctArr.join(', ')}.</span>`;
+        }
+        ansBox.style.display = "block";
+        renderMath();
+    }
+</script>
+
+</body>
+</html>
