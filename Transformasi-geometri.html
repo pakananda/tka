@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Interaktif Transformasi Geometri</title>
+    <!-- MathJax for rendering LaTeX equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --error: #dc2626;
+            --hint-bg: #fef3c7;
+            --hint-border: #f59e0b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        /* Submenu / Tabs Navigation */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            background: #e2e8f0;
+            padding: 8px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 130px;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            color: #475569;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .tab-btn.active {
+            background: var(--card);
+            color: var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--card);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Questions & Options */
+        .question-card {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 20px;
+            background: #fff;
+        }
+
+        .question-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .option-btn {
+            text-align: left;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: #fff;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .option-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .option-btn.selected {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .option-btn.correct {
+            background: #dcfce7 !important;
+            border-color: var(--success) !important;
+            color: #14532d;
+            font-weight: 600;
+        }
+
+        .option-btn.incorrect {
+            background: #fee2e2 !important;
+            border-color: var(--error) !important;
+            color: #7f1d1d;
+        }
+
+        /* Action Buttons & Expandables */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-hint {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .btn-explain {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .btn-check {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+        }
+
+        .hint-box, .explain-box {
+            display: none;
+            margin-top: 10px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .hint-box {
+            background: var(--hint-bg);
+            border-left: 4px solid var(--hint-border);
+            color: #78350f;
+        }
+
+        .explain-box {
+            background: #f0fdf4;
+            border-left: 4px solid var(--success);
+            color: #14532d;
+        }
+
+        .score-box {
+            text-align: center;
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Summary Styling */
+        .summary-section {
+            margin-bottom: 20px;
+        }
+        .summary-section h3 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        table, th, td {
+            border: 1px solid var(--border);
+        }
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background: #f1f5f9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Transformasi Geometri Interaktif</h1>
+
+    <!-- Submenu Navigation -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'ringkasan')">Ringkasan Materi</button>
+        <button class="tab-btn" onclick="openTab(event, 'latihan1')">Latihan 1-5 (LOTS)</button>
+        <button class="tab-btn" onclick="openTab(event, 'latihan2')">Latihan 6-10 (MOTS)</button>
+        <button class="tab-btn" onclick="openTab(event, 'latihan3')">Latihan 11-15 (MOTS-HOTS)</button>
+        <button class="tab-btn" onclick="openTab(event, 'latihan4')">Latihan 16-20 (HOTS)</button>
+    </div>
+
+    <!-- SUBMENU 1: RINGKASAN MATERI -->
+    <div id="ringkasan" class="tab-content active">
+        <h2>Ringkasan Materi Transformasi Geometri</h2>
+        <p>Transformasi geometri memindahkan atau mengubah posisi/ukuran dari suatu titik \(P(x,y)\) menjadi bayangannya \(P'(x',y')\).</p>
+
+        <div class="summary-section">
+            <h3>1. Translasi (Pergeseran)</h3>
+            <p>Pergeseran titik \(P(x,y)\) sejauh \(\begin{pmatrix} a \\ b \end{pmatrix}\):</p>
+            $$\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} x + a \\ y + b \end{pmatrix}$$
+        </div>
+
+        <div class="summary-section">
+            <h3>2. Refleksi (Pencerminan)</h3>
+            <table>
+                <tr><th>Jenis Pencerminan</th><th>Bayangan \(P'(x', y')\)</th></tr>
+                <tr><td>Sumbu \(X\)</td><td>\((x, -y)\)</td></tr>
+                <tr><td>Sumbu \(Y\)</td><td>\((-x, y)\)</td></tr>
+                <tr><td>Titik Asal \((0,0)\)</td><td>\((-x, -y)\)</td></tr>
+                <tr><td>Garis \(y = x\)</td><td>\((y, x)\)</td></tr>
+                <tr><td>Garis \(y = -x\)</td><td>\((-y, -x)\)</td></tr>
+                <tr><td>Garis \(x = h\)</td><td>\((2h - x, y)\)</td></tr>
+                <tr><td>Garis \(y = k\)</td><td>\((x, 2k - y)\)</td></tr>
+            </table>
+        </div>
+
+        <div class="summary-section">
+            <h3>3. Rotasi (Perputaran)</h3>
+            <p>Rotasi sebesar \(\theta\) dengan pusat \((0,0)\):</p>
+            $$\begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix}$$
+            <ul>
+                <li>\("+90^\circ"\) (berlawanan jarum jam): \((-y, x)\)</li>
+                <li>\("-90^\circ"\) / \(+270^\circ\) (searah jarum jam): \((y, -x)\)</li>
+                <li>\(180^\circ\): \((-x, -y)\)</li>
+            </ul>
+        </div>
+
+        <div class="summary-section">
+            <h3>4. Dilatasi (Perkalian Ukuran)</h3>
+            <ul>
+                <li>Pusat \((0,0)\) skala \(k\): \((x', y') = (kx, ky)\)</li>
+                <li>Pusat \((a,b)\) skala \(k\): \(x' = k(x-a)+a\), \(y' = k(y-b)+b\)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SUBMENU 2: LATIHAN 1-5 -->
+    <div id="latihan1" class="tab-content">
+        <h2>Latihan 1 - 5 (Tingkat LOTS)</h2>
+        <div id="quiz-container-1"></div>
+        <div class="score-box" id="score-1">Skor: 0 / 5</div>
+    </div>
+
+    <!-- SUBMENU 3: LATIHAN 6-10 -->
+    <div id="latihan2" class="tab-content">
+        <h2>Latihan 6 - 10 (Tingkat MOTS)</h2>
+        <div id="quiz-container-2"></div>
+        <div class="score-box" id="score-2">Skor: 0 / 5</div>
+    </div>
+
+    <!-- SUBMENU 4: LATIHAN 11-15 -->
+    <div id="latihan3" class="tab-content">
+        <h2>Latihan 11 - 15 (Tingkat MOTS ke HOTS)</h2>
+        <div id="quiz-container-3"></div>
+        <div class="score-box" id="score-3">Skor: 0 / 5</div>
+    </div>
+
+    <!-- SUBMENU 5: LATIHAN 16-20 -->
+    <div id="latihan4" class="tab-content">
+        <h2>Latihan 16 - 20 (Tingkat HOTS)</h2>
+        <div id="quiz-container-4"></div>
+        <div class="score-box" id="score-4">Skor: 0 / 5</div>
+    </div>
+</div>
+
+<script>
+// Data Soal Pilihan Ganda
+const questionsData = {
+    1: [
+        {
+            id: 1,
+            question: "Tentukan bayangan titik \\(P(-2, 5)\\) jika ditranslasikan oleh \\(T = \\begin{pmatrix} 6 \\\\ -3 \\end{pmatrix}\\).",
+            options: ["A. \\((4, 2)\\)", "B. \\((-8, 8)\\)", "C. \\((4, 8)\\)", "D. \\((-4, -2)\\)", "E. \\((8, 2)\\)"],
+            answer: 0,
+            hint: "Gunakan rumus translasi \\((x+a, y+b)\\).",
+            explain: "\\(P' = (-2 + 6, 5 + (-3)) = (4, 2)\\)."
+        },
+        {
+            id: 2,
+            question: "Titik \\(Q(4, -7)\\) dicerminkan terhadap sumbu \\(Y\\). Tentukan koordinat hasil pencerminannya.",
+            options: ["A. \\((4, 7)\\)", "B. \\((-4, -7)\\)", "C. \\((-4, 7)\\)", "D. \\((-7, 4)\\)", "E. \\((7, -4)\\)"],
+            answer: 1,
+            hint: "Refleksi terhadap sumbu \\(Y\\) mengubah tanda koordinat \\(x\\): \\((x, y) \\to (-x, y)\\).",
+            explain: "\\(Q' = (-4, -7)\\)."
+        },
+        {
+            id: 3,
+            question: "Tentukan bayangan titik \\(R(-3, 2)\\) setelah didilatasi dengan pusat \\((0,0)\\) dan faktor skala \\(-2\\).",
+            options: ["A. \\((6, 4)\\)", "B. \\((-6, -4)\\)", "C. \\((6, -4)\\)", "D. \\((-6, 4)\\)", "E. \\((1.5, -1)\\)"],
+            answer: 2,
+            hint: "Kalikan masing-masing koordinat dengan faktor skala \\(k = -2\\).",
+            explain: "\\(R' = (-2 \\times (-3), -2 \\times 2) = (6, -4)\\)."
+        },
+        {
+            id: 4,
+            question: "Titik \\(S(5, 1)\\) diputar sejauh \\(90^\\circ\\) searah jarum jam dengan pusat \\((0,0)\\). Tentukan koordinat bayangannya.",
+            options: ["A. \\((-1, 5)\\)", "B. \\((1, -5)\\)", "C. \\((-5, -1)\\)", "D. \\((-1, -5)\\)", "E. \\((1, 5)\\)"],
+            answer: 1,
+            hint: "Rotasi searah jarum jam berarti sudut \\(-90^\\circ\\). Bayangannya adalah \\((y, -x)\\).",
+            explain: "\\(S' = (1, -5)\\)."
+        },
+        {
+            id: 5,
+            question: "Jika titik \\(A'(4, -1)\\) adalah bayangan dari titik \\(A(x,y)\\) oleh refleksi terhadap garis \\(y = -x\\), tentukan koordinat asal \\(A\\).",
+            options: ["A. \\((-4, 1)\\)", "B. \\((-1, 4)\\)", "C. \\((1, -4)\\)", "D. \\((-1, -4)\\)", "E. \\((4, 1)\\)"],
+            answer: 2,
+            hint: "Pencerminan terhadap \\(y = -x\\) memetakan \\((x,y) \\to (-y, -x)\\). Lakukan operasi sebaliknya.",
+            explain: "\\(x' = -y \\implies 4 = -y \\implies y = -4\\). \\(y' = -x \\implies -1 = -x \\implies x = 1\\). Jadi \\(A(1, -4)\\)."
+        }
+    ],
+    2: [
+        {
+            id: 6,
+            question: "Bayangan garis \\(2x - 3y + 6 = 0\\) oleh translasi \\(T = \\begin{pmatrix} 1 \\\\ -2 \\end{pmatrix}\\) adalah...",
+            options: ["A. \\(2x - 3y - 2 = 0\\)", "B. \\(2x - 3y + 2 = 0\\)", "C. \\(2x - 3y + 14 = 0\\)", "D. \\(2x - 3y - 14 = 0\\)", "E. \\(2x + 3y - 2 = 0\\)"],
+            answer: 0,
+            hint: "Substitusikan \\(x = x' - 1\\) dan \\(y = y' + 2\\) ke persamaan awal.",
+            explain: "\\(2(x'-1) - 3(y'+2) + 6 = 0 \\implies 2x' - 2 - 3y' - 6 + 6 = 0 \\implies 2x - 3y - 2 = 0\\)."
+        },
+        {
+            id: 7,
+            question: "Titik \\(M(2, -3)\\) dicerminkan terhadap garis \\(x = 3\\), kemudian dilanjutkan pencerminan terhadap garis \\(y = 1\\). Tentukan bayangan akhir titik \\(M\\).",
+            options: ["A. \\((4, 5)\\)", "B. \\((4, -5)\\)", "C. \\((2, 5)\\)", "D. \\((4, 1)\\)", "E. \\((8, 5)\\)"],
+            answer: 0,
+            hint: "Gunakan rumus garis \\(x = h \\implies (2h-x, y)\\), lalu ikuti dengan garis \\(y = k \\implies (x, 2k-y)\\).",
+            explain: "Refleksi \\(x=3\\): \\(M'(2(3)-2, -3) = M'(4, -3)\\). Refleksi \\(y=1\\): \\(M''(4, 2(1)-(-3)) = M''(4, 5)\\)."
+        },
+        {
+            id: 8,
+            question: "Tentukan bayangan titik \\(N(-1, 4)\\) jika diputar \\(90^\\circ\\) berlawanan arah jarum jam dengan pusat \\(P(2, 1)\\).",
+            options: ["A. \\((-1, -2)\\)", "B. \\((1, 2)\\)", "C. \\((-1, 2)\\)", "D. \\((2, -1)\\)", "E. \\((-3, -2)\\)"],
+            answer: 0,
+            hint: "Gunakan rumus rotasi pusat \\((a,b)\\) sebesar \\(+90^\\circ\\): \\(x' - a = -(y - b)\\) dan \\(y' - b = x - a\\).",
+            explain: "\\(x' - 2 = -(4 - 1) \\implies x' = -1\\). \\(y' - 1 = -1 - 2 \\implies y' = -2\\). Jadi \\(N'(-1, -2)\\)."
+        },
+        {
+            id: 9,
+            question: "Sebuah garis \\(y = 3x + 2\\) didilatasi dengan pusat \\(P(1, 2)\\) dan faktor skala 3. Tentukan persamaan garis bayangannya.",
+            options: ["A. \\(y = 3x + 6\\)", "B. \\(y = 9x + 14\\)", "C. \\(y = 3x - 2\\)", "D. \\(y = 3x + 4\\)", "E. \\(y = 9x + 2\\)"],
+            answer: 1,
+            hint: "Gunakan hubungan \\(x = \\frac{x'+2}{3}\\) dan \\(y = \\frac{y'+4}{3}\\).",
+            explain: "\\(\\frac{y'+4}{3} = 3\\left(\\frac{x'+2}{3}\\right) + 2 \\implies y'+4 = 3(3x'+6) \\implies y = 9x + 14\\)."
+        },
+        {
+            id: 10,
+            question: "Titik \\(K(a, b)\\) ditranslasikan oleh \\(T = \\begin{pmatrix} -2 \\\\ 3 \\end{pmatrix}\\), kemudian dirotasikan \\(180^\\circ\\) dengan pusat \\((0,0)\\) menghasilkan bayangan \\(K''(-1, -4)\\). Tentukan nilai \\(a + b\\).",
+            options: ["A. 2", "B. 3", "C. 4", "D. 5", "E. 6"],
+            answer: 2,
+            hint: "Kerjakan mundur: Rotasi \\(180^\\circ\\) membalikkan tanda titik awal.",
+            explain: "Sebelum rotasi \\(180^\\circ\\), \\(K'(1, 4)\\). Translasi: \\(a - 2 = 1 \\implies a = 3\\); \\(b + 3 = 4 \\implies b = 1\\). Maka \\(a + b = 4\\)."
+        }
+    ],
+    3: [
+        {
+            id: 11,
+            question: "Tentukan persamaan bayangan lingkaran \\(x^2 + y^2 - 4x + 2y - 4 = 0\\) jika dicerminkan terhadap garis \\(y = -x\\).",
+            options: ["A. \\(x^2 + y^2 - 2x + 4y - 4 = 0\\)", "B. \\(x^2 + y^2 + 2x - 4y - 4 = 0\\)", "C. \\(x^2 + y^2 - 4x - 2y - 4 = 0\\)", "D. \\(x^2 + y^2 + 4x - 2y - 4 = 0\\)", "E. \\(x^2 + y^2 - 2x - 4y - 4 = 0\\)"],
+            answer: 0,
+            hint: "Pusat lingkaran awal adalah \\((2, -1)\\) dengan jari-jari \\(r = 3\\). Refleksikan pusatnya saja.",
+            explain: "Pusat awal \\((2, -1)\\) dicerminkan terhadap \\(y = -x\\) menjadi \\((1, -2)\\). Persamaan lingkaran baru: \\((x-1)^2 + (y+2)^2 = 9 \\implies x^2 + y^2 - 2x + 4y - 4 = 0\\)."
+        },
+        {
+            id: 12,
+            question: "Garis \\(3x + y - 5 = 0\\) ditranslasikan oleh \\(T = \\begin{pmatrix} -1 \\\\ 2 \\end{pmatrix}\\), kemudian dirotasikan \\(90^\\circ\\) searah jarum jam terhadap titik pusat \\((0,0)\\). Tentukan persamaan garis bayangan terakhir.",
+            options: ["A. \\(x - 3y - 4 = 0\\)", "B. \\(x + 3y - 4 = 0\\)", "C. \\(3x - y - 4 = 0\\)", "D. \\(x - 3y + 4 = 0\\)", "E. \\(3x + y + 4 = 0\\)"],
+            answer: 0,
+            hint: "Lakukan transformasi komposisi koordinat: \\((x,y) \\to (x-1, y+2) \\to (y+2, -(x-1))\\).",
+            explain: "\\(x'' = y + 2 \\implies y = x'' - 2\\) dan \\(y'' = -x + 1 \\implies x = 1 - y''\\). Substitusi: \\(3(1-y) + (x-2) - 5 = 0 \\implies x - 3y - 4 = 0\\)."
+        },
+        {
+            id: 13,
+            question: "Sebuah segitiga \\(ABC\\) dengan \\(A(1,1)\\), \\(B(4,1)\\), dan \\(C(1,5)\\) didilatasi dengan pusat \\((0,0)\\) dan faktor skala \\(k = 2\\), lalu ditranslasikan oleh \\(T = \\begin{pmatrix} 3 \\\\ -1 \\end{pmatrix}\\). Hitung luas bangun bayangan segitiga tersebut!",
+            options: ["A. 12 cm²", "B. 18 cm²", "C. 24 cm²", "D. 36 cm²", "E. 48 cm²"],
+            answer: 2,
+            hint: "Luas bayangan setelah dilatasi skala \\(k\\) adalah \\(k^2 \\times \\text{Luas Awal}\\). Translasi tidak mengubah luas.",
+            explain: "Luas awal = \\(\\frac{1}{2} \\times 3 \\times 4 = 6\\). Luas bayangan = \\(2^2 \\times 6 = 24\\) cm²."
+        },
+        {
+            id: 14,
+            question: "Parabola \\(y = x^2 - 2x + 3\\) dicerminkan terhadap sumbu \\(X\\), kemudian digeser sejauh 3 satuan ke kanan dan 1 satuan ke bawah. Tentukan persamaan parabola yang baru.",
+            options: ["A. \\(y = -x^2 + 8x - 19\\)", "B. \\(y = -x^2 + 6x - 18\\)", "C. \\(y = -x^2 + 8x - 18\\)", "D. \\(y = x^2 - 8x + 19\\)", "E. \\(y = -x^2 - 8x - 19\\)"],
+            answer: 0,
+            hint: "Refleksi sumbu \\(X\\): \\(y \\to -y\\). Pergeseran: substitusikan \\(x \\to x - 3\\) dan \\(y \\to y + 1\\).",
+            explain: "Refleksi: \\(y = -x^2 + 2x - 3\\). Pergeseran: \\(y + 1 = -(x-3)^2 + 2(x-3) - 3 \\implies y = -x^2 + 8x - 19\\)."
+        },
+        {
+            id: 15,
+            question: "Tentukan matriks tunggal yang mewakili komposisi transformasi: refleksi terhadap garis \\(y = x\\) dilanjutkan dengan rotasi \\(+90^\\circ\\) dengan pusat \\((0,0)\\).",
+            options: ["A. \\(\\begin{pmatrix} -1 & 0 \\\\ 0 & 1 \\end{pmatrix}\\)", "B. \\(\\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}\\)", "C. \\(\\begin{pmatrix} 0 & -1 \\\\ -1 & 0 \\end{pmatrix}\\)", "D. \\(\\begin{pmatrix} -1 & 0 \\\\ 0 & -1 \\end{pmatrix}\\)", "E. \\(\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}\\)"],
+            answer: 0,
+            hint: "Kalikan matriks rotasi \\(M_2\\) dari kiri ke matriks refleksi \\(M_1\\): \\(M = M_2 \\cdot M_1\\).",
+            explain: "\\(M = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix} \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} = \\begin{pmatrix} -1 & 0 \\\\ 0 & 1 \\end{pmatrix}\\)."
+        }
+    ],
+    4: [
+        {
+            id: 16,
+            question: "Kurva \\(y = x^2 - 4\\) ditransformasikan oleh matriks \\(M = \\begin{pmatrix} 2 & 1 \\\\ 1 & 1 \\end{pmatrix}\\). Tentukan persamaan bayangan kurva tersebut.",
+            options: ["A. \\(x^2 - 2xy + y^2 + x - 2y - 4 = 0\\)", "B. \\(x^2 + 2xy + y^2 - x + 2y - 4 = 0\\)", "C. \\(x^2 - 2xy + y^2 - x + 2y - 4 = 0\\)", "D. \\(2x^2 - xy + y^2 + x - y - 4 = 0\\)", "E. \\(x^2 - 2xy - y^2 + x - 2y + 4 = 0\\)"],
+            answer: 0,
+            hint: "Gunakan invers matriks \\(M^{-1} = \\begin{pmatrix} 1 & -1 \\\\ -1 & 2 \\end{pmatrix}\\) untuk menyatakan \\(x = x' - y'\\) dan \\(y = -x' + 2y'\\).",
+            explain: "Substitusi \\(x = x' - y'\\) dan \\(y = -x' + 2y'\\) ke \\(y = x^2 - 4\\): \\(-x + 2y = (x - y)^2 - 4 \\implies x^2 - 2xy + y^2 + x - 2y - 4 = 0\\)."
+        },
+        {
+            id: 17,
+            question: "Titik \\(P(x, y)\\) dicerminkan terhadap garis \\(y = 2x\\). Matriks transformasi yang sesuai dengan pencerminan ini adalah...",
+            options: [
+                "A. \\(\\begin{pmatrix} -3/5 & 4/5 \\\\ 4/5 & 3/5 \\end{pmatrix}\\)",
+                "B. \\(\\begin{pmatrix} 3/5 & 4/5 \\\\ 4/5 & -3/5 \\end{pmatrix}\\)",
+                "C. \\(\\begin{pmatrix} -3/5 & -4/5 \\\\ 4/5 & 3/5 \\end{pmatrix}\\)",
+                "D. \\(\\begin{pmatrix} 4/5 & -3/5 \\\\ 3/5 & 4/5 \\end{pmatrix}\\)",
+                "E. \\(\\begin{pmatrix} -1/5 & 2/5 \\\\ 2/5 & 1/5 \\end{pmatrix}\\)"
+            ],
+            answer: 0,
+            hint: "Gunakan matriks refleksi \\(\\begin{pmatrix} \\cos 2\\theta & \\sin 2\\theta \\\\ \\sin 2\\theta & -\\cos 2\\theta \\end{pmatrix}\\) di mana \\(\\tan\\theta = 2\\).",
+            explain: "Dengan \\(\\tan\\theta = 2\\), \\(\\cos 2\\theta = -3/5\\) dan \\(\\sin 2\\theta = 4/5\\). Matriksnya adalah \\(\\begin{pmatrix} -3/5 & 4/5 \\\\ 4/5 & 3/5 \\end{pmatrix}\\)."
+        },
+        {
+            id: 18,
+            question: "Dua buah pencerminan berurutan dilakukan terhadap garis \\(x = 2\\) dan kemudian terhadap garis \\(x = 5\\). Jika sebuah titik \\(A\\) menghasilkan bayangan akhir di \\(A''(11, 3)\\), tentukan koordinat awal titik \\(A\\).",
+            options: ["A. \\((5, 3)\\)", "B. \\((17, 3)\\)", "C. \\((5, -3)\\)", "D. \\((3, 5)\\)", "E. \\((6, 3)\\)"],
+            answer: 0,
+            hint: "Dua pencerminan garis sejajar \\(x = a\\) dan \\(x = b\\) ekuivalen dengan translasi sejauh \\(2(b - a)\\) pada sumbu \\(X\\).",
+            explain: "Translasi \\(T = \\begin{pmatrix} 2(5 - 2) \\\\ 0 \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ 0 \\end{pmatrix}\\). \\(A = A'' - T = (11 - 6, 3 - 0) = (5, 3)\\)."
+        },
+        {
+            id: 19,
+            question: "Sebuah bidang bujur sangkar dengan luas 10 cm² ditransformasikan berturut-turut oleh matriks \\(T_1 = \\begin{pmatrix} 3 & 1 \\\\ 2 & 4 \\end{pmatrix}\\) dan \\(T_2 = \\begin{pmatrix} 1 & -2 \\\\ 0 & 3 \\end{pmatrix}\\). Tentukan luas bangun bayangan akhir tersebut!",
+            options: ["A. 150 cm²", "B. 300 cm²", "C. 360 cm²", "D. 400 cm²", "E. 600 cm²"],
+            answer: 1,
+            hint: "Rasio perubahan luas sama dengan perkalian determinan matriks transformasinya: \\(|\\det(T_2)| \\times |\\det(T_1)| \\times \\text{Luas Awal}\\).",
+            explain: "\\(\\det(T_1) = 12 - 2 = 10\\). \\(\\det(T_2) = 3 - 0 = 3\\). Luas akhir = \\(3 \\times 10 \\times 10 = 300\\) cm²."
+        },
+        {
+            id: 20,
+            question: "Titik \\(A(2, 3)\\) dirotasikan sebesar \\(60^\\circ\\) dilanjutkan rotasi \\(30^\\circ\\) searah jarum jam, dengan pusat rotasi yang sama yaitu \\(P(1, -1)\\). Tentukan koordinat bayangan akhir titik \\(A\\).",
+            options: [
+                "A. \\((\\frac{\\sqrt{3}}{2} - 1, 2\\sqrt{3} - \\frac{1}{2})\\)",
+                "B. \\((\\frac{\\sqrt{3}}{2} + 1, 2\\sqrt{3} + \\frac{1}{2})\\)",
+                "C. \\((2\\sqrt{3} - 1, \\frac{\\sqrt{3}}{2} - \\frac{1}{2})\\)",
+                "D. \\((\\frac{\\sqrt{3}}{2}, 2\\sqrt{3})\\)",
+                "E. \\((\\sqrt{3} - 1, \\sqrt{3} - \\frac{1}{2})\\)"
+            ],
+            answer: 0,
+            hint: "Sudut total rotasi adalah \\(\\theta = 60^\\circ + (-30^\\circ) = 30^\\circ\\) dengan pusat \\(P(1, -1)\\).",
+            explain: "\\(x' - 1 = 1\\cos 30^\\circ - 4\\sin 30^\\circ = \\frac{\\sqrt{3}}{2} - 2 \\implies x' = \\frac{\\sqrt{3}}{2} - 1\\). \\(y' + 1 = 1\\sin 30^\\circ + 4\\cos 30^\\circ = \\frac{1}{2} + 2\\sqrt{3} \\implies y' = 2\\sqrt{3} - \\frac{1}{2}\\)."
+        }
+    ]
+};
+
+// Render Quiz Submenus
+function renderQuiz(subGroupId, containerId) {
+    const container = document.getElementById(containerId);
+    const questions = questionsData[subGroupId];
+    container.innerHTML = "";
+
+    questions.forEach((q, index) => {
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.id = `q-card-${q.id}`;
+
+        let optionsHTML = "";
+        q.options.forEach((opt, optIdx) => {
+            optionsHTML += `<button class="option-btn" onclick="selectOption(${q.id}, ${optIdx})">${opt}</button>`;
+        });
+
+        card.innerHTML = `
+            <div class="question-title">${q.id}. ${q.question}</div>
+            <div class="options" id="options-${q.id}">
+                ${optionsHTML}
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-check" onclick="checkAnswer(${q.id}, ${q.answer}, ${subGroupId})">Cek Jawaban</button>
+                <button class="btn btn-hint" onclick="toggleElement('hint-${q.id}')">Petunjuk (Hint)</button>
+                <button class="btn btn-explain" onclick="toggleElement('explain-${q.id}')">Pembahasan</button>
+            </div>
+            <div id="hint-${q.id}" class="hint-box"><strong>Hint:</strong> ${q.hint}</div>
+            <div id="explain-${q.id}" class="explain-box"><strong>Pembahasan:</strong> ${q.explain}</div>
+        `;
+        container.appendChild(card);
+    });
+
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+}
+
+// User state tracker
+const userAnswers = {};
+
+function selectOption(qId, optionIndex) {
+    userAnswers[qId] = optionIndex;
+    const optionsContainer = document.getElementById(`options-${qId}`);
+    const btns = optionsContainer.getElementsByClassName("option-btn");
+    
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].classList.remove("selected");
+    }
+    btns[optionIndex].classList.add("selected");
+}
+
+function checkAnswer(qId, correctIndex, subGroupId) {
+    const selected = userAnswers[qId];
+    if (selected === undefined) {
+        alert("Pilih salah satu jawaban terlebih dahulu!");
+        return;
+    }
+
+    const optionsContainer = document.getElementById(`options-${qId}`);
+    const btns = optionsContainer.getElementsByClassName("option-btn");
+
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].classList.remove("correct", "incorrect");
+        if (i === correctIndex) {
+            btns[i].classList.add("correct");
+        }
+        if (i === selected && selected !== correctIndex) {
+            btns[i].classList.add("incorrect");
+        }
+    }
+
+    updateScore(subGroupId);
+}
+
+function updateScore(subGroupId) {
+    const questions = questionsData[subGroupId];
+    let correctCount = 0;
+
+    questions.forEach(q => {
+        if (userAnswers[q.id] === q.answer) {
+            correctCount++;
+        }
+    });
+
+    document.getElementById(`score-${subGroupId}`).innerText = `Skor: ${correctCount} / ${questions.length}`;
+}
+
+function toggleElement(id) {
+    const el = document.getElementById(id);
+    if (el.style.display === "block") {
+        el.style.display = "none";
+    } else {
+        el.style.display = "block";
+    }
+}
+
+// Tab navigation handler
+function openTab(evt, tabName) {
+    const tabContents = document.getElementsByClassName("tab-content");
+    for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove("active");
+    }
+
+    const tabBtns = document.getElementsByClassName("tab-btn");
+    for (let i = 0; i < tabBtns.length; i++) {
+        tabBtns[i].classList.remove("active");
+    }
+
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+}
+
+// Initialize All Quizzes on Load
+window.onload = function() {
+    renderQuiz(1, "quiz-container-1");
+    renderQuiz(2, "quiz-container-2");
+    renderQuiz(3, "quiz-container-3");
+    renderQuiz(4, "quiz-container-4");
+};
+</script>
+
+</body>
+</html>
